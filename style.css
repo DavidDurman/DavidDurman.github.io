@@ -1,0 +1,9 @@
+body { 
+  background-image: url("paper.gif");
+}
+
+h1 { 
+  text-align: center;
+  color: black;
+  font-size: 16px;
+}
