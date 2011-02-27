@@ -44,6 +44,9 @@ body {
     font-size: 20px;
 }
 
-#disqus_thread {
+#disqus_thread,
+#disqus_thread a {
     color: white;
 }
+
+    
