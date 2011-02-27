@@ -34,3 +34,7 @@ body {
 .mozilla {
     width: 300px;
 }
+
+#disqus-thread {
+    color: white;
+}
