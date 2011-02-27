@@ -1,0 +1,36 @@
+body { 
+  background-image: url("../img/pat2.gif");
+  background-repeat: repeat;
+}
+
+#header h1 { 
+  text-align: center;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#main {
+    width: 800px;
+    margin: 0 auto;
+    background-color: #2f2f2f;
+    color: white;
+    padding: 40px;
+}
+
+#footer {
+    border-top: 2px solid white;
+    width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.pledgie {
+    float: left;
+    width: 250px;
+    color: white;
+}
+
+.mozilla {
+    width: 300px;
+}

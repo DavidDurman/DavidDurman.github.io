@@ -2,43 +2,60 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/grids.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <title></title>
   </head>
   <body>
-    <h1>Welcome!</h1>
 
-<a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/RegExp'
-   title='JS RegExp toString'>
-  <img src='http://static.jsconf.us/promotejsh.gif' height='150' width='180' alt='JS RegExp toString'/>
-</a>
+    <div id="header">
+        <h1>David Durman's blog</h1>
+    </div>
 
-<a href='http://www.pledgie.com/campaigns/14101'><img alt='Click here to lend your support to: JointJS and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/14101.png?skin_name=chrome' border='0' /></a>
+    <div id="main">
+        <div class="article">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis nisi lorem, et posuere dui. Suspendisse lacinia dui at urna dictum malesuada et eu leo. Nulla nec nibh enim. Etiam fringilla, libero non interdum sodales, neque augue sollicitudin enim, at malesuada erat nisi feugiat sapien. Nulla facilisi. Nullam semper vulputate sapien, at rutrum lorem rutrum ac. Aliquam erat volutpat. Sed molestie, quam ac interdum vehicula, dolor diam sollicitudin dui, quis lacinia massa risus id nunc. Praesent aliquam orci imperdiet ligula interdum vestibulum. Integer facilisis justo et ipsum adipiscing nec sagittis urna mollis.
 
-<!--
-<a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function'
-   title='JS Function Example: Specifying arguments with the Function constructor'>
-  <img src='http://static.jsconf.us/promotejsv.gif' height='280' width='160'
-       alt='JS Function Example: Specifying arguments with the Function constructor'/>
-</a>
--->
-<!-- <a href="http://www.daviddurman.com/index.html#disqus_thread">Comments</a> -->
+Nunc risus lectus, scelerisque at rhoncus pretium, adipiscing a mi. Vestibulum euismod lobortis urna ut malesuada. Ut sed massa eget nisi hendrerit sagittis sit amet quis sapien. Pellentesque dui tortor, tincidunt sed accumsan vel, laoreet at enim. In lorem magna, vulputate accumsan placerat sed, euismod malesuada tortor. Ut suscipit volutpat eros viverra placerat. Fusce neque lacus, faucibus eu viverra sed, ultricies at odio. Nam id quam erat, eu posuere felis. Integer sed nulla justo. Etiam a justo a quam rutrum adipiscing.
 
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-  /**
-    * var disqus_identifier; [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread] 
-    */
-  (function() {
-   var dsq = document.createElement('script');
-   dsq.type = 'text/javascript';
-   dsq.async = true;
-   dsq.src = 'http://daviddurman.disqus.com/embed.js';
-   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=daviddurman">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+Phasellus in scelerisque magna. Sed at nisi felis. Aenean at sem diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ullamcorper congue risus ut vehicula. Donec vel augue quam, in convallis erat. Aliquam erat volutpat. Nam gravida ipsum scelerisque ipsum ornare semper. Vestibulum tempor, diam vel imperdiet fermentum, urna nibh vehicula lectus, quis adipiscing lorem risus eget justo. Proin rutrum ornare ipsum vitae imperdiet.
+
+Donec diam purus, euismod vel sagittis et, interdum quis felis. In hac habitasse platea dictumst. Integer tincidunt, nisl sed dignissim dapibus, tellus eros imperdiet tortor, nec scelerisque orci sem non enim. Curabitur dolor odio, pulvinar at facilisis vitae, placerat auctor velit. Ut consectetur felis eget nulla ultrices dictum ullamcorper turpis tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed neque diam, sollicitudin a cursus a, pellentesque sed diam. Nullam diam libero, vulputate adipiscing venenatis pulvinar, dictum eget nisi. Nullam ut rhoncus risus. Nunc eleifend lectus sed mauris ornare nec elementum massa cursus. Aenean odio tortor, porttitor eget congue vel, interdum non odio. Sed porta nibh vitae felis pulvinar convallis. Donec dui purus, tempor sit amet dapibus quis, consectetur in urna. Vivamus magna tellus, facilisis eget fermentum non, iaculis in dolor.
+        </div>
+    </div>
+
+    <div id="footer" class="line">
+
+        <div class="pledgie unit">
+            <h4>Support JointJS library:</h4>
+            <a href='http://www.pledgie.com/campaigns/14101'><img alt='Click here to lend your support to: JointJS and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/14101.png?skin_name=chrome' border='0' /></a>
+        </div>
+
+        <div class="mozilla unit lastUnit">
+            <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/RegExp'
+               title='JS RegExp toString'>
+                <img src='http://static.jsconf.us/promotejsh.gif' height='150' width='180' alt='JS RegExp toString'/>
+            </a>
+        </div>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /**
+            * var disqus_identifier; [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread] 
+            */
+            (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'http://daviddurman.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=daviddurman">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </div>
 
 
 
