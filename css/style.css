@@ -1,13 +1,44 @@
 body { 
-  background-image: url("../img/pat2.gif");
-  background-repeat: repeat;
+}
+
+a {
+    color: #BC4026;
+    padding: 3px;
+}
+a:hover {
+    background-color: #FCF8CB;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+#mypicture {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 400px;
+    z-index: -1;
+    display: block;
+}
+
+#about {
+    position: absolute;
+    left: 30px;
+    top: 280px;
+    width: 200px;
+    height: 200px;
+    font-family: Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
 }
 
 #header h1 { 
   text-align: center;
-  color: white;
-  font-size: 28px;
+  color: #6EADB4;
+  font-size: 42px;
   font-weight: bold;
+  font-family: 'Luckiest Guy', arial, serif;
+  margin: 12px 0;
+  text-shadow: 1px 1px black;
 }
 
 #main {
@@ -16,13 +47,30 @@ body {
     background-color: #2f2f2f;
     color: white;
     padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px gray;
+}
+
+.article h2 {
+    font-family: 'Philosopher', arial, serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+}
+.article p {
+    margin: 12px;
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
 }
 
 #footer {
-    border-top: 2px solid white;
-    width: 1000px;
-    margin: 20px auto;
+    border-top: 2px solid #BC4026;
+    border-right: 2px solid #BC4026;
+    width: 100%;
+    margin: 20px 0 0 0;
     padding: 20px;
+    background-color: #6EADB4;
 }
 
 .pledgie {
@@ -37,11 +85,17 @@ body {
 
 .jointjs {
     width: 350px;
+    float: right;
+    font-size: 20px;
+    font-family: Helvetica, sans-serif;
 }
 .jointjs a {
     color: white;
     text-decoration: none;
-    font-size: 20px;
+}
+.jointjs a:hover {
+    background-color: transparent;
+    text-decoration: none;
 }
 
 #disqus_thread,

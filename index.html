@@ -2,78 +2,74 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/reset.css"/>
-    <link rel="stylesheet" href="css/grids.css"/>
     <link rel="stylesheet" href="css/style.css"/>
     <title></title>
   </head>
   <body>
-
+    <img id="mypicture" src="img/profile.png"/>
     <div id="header">
         <h1>David Durman's blog</h1>
     </div>
-
+    <div id="about">
+        Hi there, thanks for coming! My name is David Durman
+        and I'm a JavaScript developer based in Amsterdam, the Netherlands.
+        Some of my projects are in <a href="http://www.github.com/DavidDurman">Github</a>,
+        you can also find me on <a href="http://nl.linkedin.com/in/daviddurman">LinkedIn</a> or
+        <a href="http://www.twitter.com/DavidDurman">Twitter</a>.
+    </div>
     <div id="main">
         <div class="article">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam quis nisi lorem, et posuere dui. Suspendisse lacinia dui at urna dictum malesuada et eu leo. Nulla nec nibh enim. Etiam fringilla, libero non interdum sodales, neque augue sollicitudin enim, at malesuada erat nisi feugiat sapien. Nulla facilisi. Nullam semper vulputate sapien, at rutrum lorem rutrum ac. Aliquam erat volutpat. Sed molestie, quam ac interdum vehicula, dolor diam sollicitudin dui, quis lacinia massa risus id nunc. Praesent aliquam orci imperdiet ligula interdum vestibulum. Integer facilisis justo et ipsum adipiscing nec sagittis urna mollis.
-
-Nunc risus lectus, scelerisque at rhoncus pretium, adipiscing a mi. Vestibulum euismod lobortis urna ut malesuada. Ut sed massa eget nisi hendrerit sagittis sit amet quis sapien. Pellentesque dui tortor, tincidunt sed accumsan vel, laoreet at enim. In lorem magna, vulputate accumsan placerat sed, euismod malesuada tortor. Ut suscipit volutpat eros viverra placerat. Fusce neque lacus, faucibus eu viverra sed, ultricies at odio. Nam id quam erat, eu posuere felis. Integer sed nulla justo. Etiam a justo a quam rutrum adipiscing.
-
-Phasellus in scelerisque magna. Sed at nisi felis. Aenean at sem diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Ut ullamcorper congue risus ut vehicula. Donec vel augue quam, in convallis erat. Aliquam erat volutpat. Nam gravida ipsum scelerisque ipsum ornare semper. Vestibulum tempor, diam vel imperdiet fermentum, urna nibh vehicula lectus, quis adipiscing lorem risus eget justo. Proin rutrum ornare ipsum vitae imperdiet.
-
-Donec diam purus, euismod vel sagittis et, interdum quis felis. In hac habitasse platea dictumst. Integer tincidunt, nisl sed dignissim dapibus, tellus eros imperdiet tortor, nec scelerisque orci sem non enim. Curabitur dolor odio, pulvinar at facilisis vitae, placerat auctor velit. Ut consectetur felis eget nulla ultrices dictum ullamcorper turpis tempor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed neque diam, sollicitudin a cursus a, pellentesque sed diam. Nullam diam libero, vulputate adipiscing venenatis pulvinar, dictum eget nisi. Nullam ut rhoncus risus. Nunc eleifend lectus sed mauris ornare nec elementum massa cursus. Aenean odio tortor, porttitor eget congue vel, interdum non odio. Sed porta nibh vitae felis pulvinar convallis. Donec dui purus, tempor sit amet dapibus quis, consectetur in urna. Vivamus magna tellus, facilisis eget fermentum non, iaculis in dolor.
+            <h2>A pure JavaScript color picker</h2>
+            <p>Yes... you see it right, yet another color picker out there! 
+                But what makes this one special over the others?</p>
+            <p>
+                Let me start to explain the usual way web based color pickers are built.
+                95% of them use one or more images to show the color palette, the rest
+                is built with flash. That seems to be logical, right?</p>
+            <p>
+                But is this image/flash/CSS downloading overhead really necessary?
+                And what if you want to change the dimensions of the color picker?</p>
+            <p>
+                I asked myself these two questions when building a web based diagramming
+                editor on top of my <a href="http://www.jointjs.com">JointJS</a> library.
+                I tried plenty of color pickers but no one suited my needs. So I decided
+                to build a new one. The result is 4.3KB of minified JavaScript without
+                any dependency on an external library. It's a standalone piece of
+                code which you can just append to your other JavaScript reducing
+                unnecessary server requests. It works in all major browsers (IE7+, FF3.5+, Chrome 4+, Safari 4+, Opera 9+,
+                might also work in IE6 but I didn't want to get my hands dirty, so I haven't tried).
+                The dimensions and position of the picker and slide area can be fully customized
+                in CSS just like any other div element.</p>
+            <p>
+                And what is the magic behind? Sorry, no magic, just normal (usually forgotten)
+                SVG/VML. The size of vector objects created are set to 100% width/height so
+                they are adjusted according to the outer divs. Registered callback is invoked
+                whenever the color changes and it is passed a color in hexadecimal, hsv and rgb formats.
+                That's it.</p>
+            <p>
+                Try it yourself: <a href="http://www.daviddurman.com/flexi-color-picker">Flexi Color Picker</a>.</p>
         </div>
     </div>
 
-    <div id="footer" class="line">
+    <div id="footer">
 
-        <div class="pledgie unit">
-            <h4>Support JointJS library:</h4>
-            <a href='http://www.pledgie.com/campaigns/14101'><img alt='Click here to lend your support to: JointJS and make a donation at www.pledgie.com !' src='http://www.pledgie.com/campaigns/14101.png?skin_name=chrome' border='0' /></a>
-        </div>
-
-        <div class="jointjs unit">
+        <div class="jointjs">
             <a href="http://www.jointjs.com">
                 <img class="logo" src="img/jointjs_logo.png" alt="JointJS"/><br/>
                 JavaScript diagramming library
             </a>
         </div>
 
-        <div class="mozilla unit lastUnit">
+        <div class="mozilla unit">
             <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/RegExp'
                title='JS RegExp toString'>
                 <img src='http://static.jsconf.us/promotejsh.gif' height='150' width='180' alt='JS RegExp toString'/>
             </a>
         </div>
-
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /**
-            * var disqus_identifier; [Optional but recommended: Define a unique identifier (e.g. post id or slug) for this thread] 
-            */
-            (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = 'http://daviddurman.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript=daviddurman">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
     </div>
-
-
-
-<script type="text/javascript">
-var disqus_shortname = 'daviddurman';
-(function () {
-  var s = document.createElement('script'); s.async = true;
-  s.src = 'http://disqus.com/forums/daviddurman/count.js';
-  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-}());
-</script>
 
   </body>
 </html>
