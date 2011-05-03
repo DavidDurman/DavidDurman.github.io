@@ -39,6 +39,10 @@ a:hover {
   font-family: 'Luckiest Guy', arial, serif;
   margin: 12px 0;
   text-shadow: 1px 1px black;
+  -webkit-transition: -webkit-transform 1s ease-in;
+}
+#header h1:active { 
+    -webkit-transform: scale(2) translateY(20px);
 }
 
 #main {
