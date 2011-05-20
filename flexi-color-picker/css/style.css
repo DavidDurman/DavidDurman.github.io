@@ -5,11 +5,10 @@ body {
     background-color: #d4edfb;
 }
 #browsers {
-    float: right;
+    float: left;
     width: 120px;
-    margin-top: -230px;
     position: relative;
-    left: 260px;
+    left: 170px;
 }
 #browsers span {
     font-size: 9px;
@@ -82,7 +81,7 @@ body {
     letter-spacing: 2px;
     font-size: 24px;
 }
-#header .picker { 
+#header .picker-header { 
     font-family: 'Waiting for the Sunrise', arial, serif;
     margin-left: 10px;
     color: lightgray; 
@@ -91,11 +90,11 @@ body {
 
 #main {
     width: 1200px;
-    margin: 0 auto 0 auto;
+    margin: 50px auto 0 auto;
 }
 
 #example {
-    width: 200px;
+    width: 500px;
     float: left;
     font-size: 12px;
     opacity: 0.8;
@@ -119,23 +118,34 @@ body {
     margin-left: 400px;
 }
 
-#picker-wrapper {
-    width: 240px;
-    height: 200px;
-    margin: 40px auto 0 auto;
-    background-color: gray;
-    padding: 12px;
-    box-shadow: 0 0 40px #000;
-    border-radius: 15px;
-}
-#color-values {
+#theme-selector {
+    float: left;
+    clear: both;
     position: relative;
-    top: 30px;
-    left: 55px;
+    left: 515px;
+    top: -100px;
+}
+#theme-selector a {
+    text-decoration: none;
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    font-size: 12px;
+    margin-right: 20px;
+    padding: 5px;
+}
+#theme-selector a:hover {
+    background-color: black;
+    color: white;
+}
+
+#color-values {
     list-style-type: none;
-    margin: 0 auto;
-    padding: 16px;
-    width: 310px;
+    float: left;
+    clear: both;
+    position: relative;
+    left: 470px;
+    top: -80px;
 }
 #color-values label {
     display: inline-block;
@@ -154,19 +164,6 @@ body {
 #color-values span:hover {
     background-color: white;
 }
-#picker {
-    width: 200px;
-    height: 200px;
-    float: left;
-    cursor: crosshair;
-}
-#slide {
-    width: 30px;
-    height: 200px;
-    float: left;
-    margin-left: 10px;
-    cursor: crosshair;
-}
 .clear {
     height: 1px;
     clear: both;
@@ -175,7 +172,7 @@ body {
 #footer {
     min-height: 400px;
     padding-top: 0px;
-    margin-top: 50px;
+    margin-top: 0px;
     text-align: center;
     background-color: #1A2529;
 }
@@ -247,6 +244,7 @@ body {
 
 #disqus_thread {
     width: 600px;
+    margin: 0 auto;
 }
 #disqus_thread h3 {
     color: white;
@@ -255,4 +253,10 @@ body {
 #disqus_thread a {
     color: white;
     font-size: 10px;
+}
+.dsq-like-activity {
+    color: white;
+}
+.dsq-brlink {
+    color: white;
 }
