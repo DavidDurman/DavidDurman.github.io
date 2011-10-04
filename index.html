@@ -2,10 +2,12 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <link href='http://fonts.googleapis.com/css?family=Luckiest+Guy' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/reset.css"/>
     <link rel="stylesheet" href="css/style.css"/>
+
     <meta name="author" content="David Durman">
     <meta name="keywords" content="David Durman, javascript, web applications, programming">
     <meta name="description" content="Hi, my name is David Durman and I'm a JavaScript developer based in Amsterdam, the Netherlands.">
@@ -26,16 +28,77 @@
   <body>
     <img id="mypicture" src="img/profile.png"/>
     <div id="header">
-        <h1>David Durman's blog</h1>
-    </div>
-    <div id="about">
-        Hi there, thanks for coming! My name is David Durman
-        and I'm a JavaScript developer based in Amsterdam, the Netherlands.
-        Some of my projects are in <a href="http://www.github.com/DavidDurman">Github</a>,
-        you can also find me on <a href="http://nl.linkedin.com/in/daviddurman">LinkedIn</a> or
-        <a href="http://www.twitter.com/DavidDurman">Twitter</a>.
+        <h1>David Durman</h1>
+        <div id="about">
+            Hi there, thanks for coming! My name is David Durman
+            and I'm a JavaScript developer based in Amsterdam, the Netherlands.
+            Some of my projects are in <a href="http://www.github.com/DavidDurman">Github</a>,
+            you can also find me on <a href="http://nl.linkedin.com/in/daviddurman">LinkedIn</a> or
+            <a href="http://www.twitter.com/DavidDurman">Twitter</a>.
+        </div>
     </div>
     <div id="main">
+        <div class="article">
+            <h2>JSON editor jQuery plugin</h2>
+            <p>Anybody had a need for a simple JSON editor component that allows
+                you to edit a JSON object and directly reflect the changes? Here it is:
+            </p>
+            <h3>Example first:</h3>
+            <p>
+                <pre><code>
+&lt;link rel="stylesheet" type="text/css" href="jsoneditor.css"/&gt;
+
+&lt;div id="editor" class="editor"&gt;&lt;/div&gt;
+&lt;pre id="json"&gt;&lt;/div&gt;
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.jsoneditor.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    var json = {
+       "string": "foo",
+       "number": 5,
+       "array": [1, 2, 3],
+       "object": {
+         "property": "value",
+         "subobj": {
+         "arr": ["foo", "ha"],
+         "numero": 1
+       }
+    };
+    $('#editor').jsonEditor(json, { change: function() {
+        $('#json').html(JSON.stringify(json));
+    } });
+&lt;/script&gt;
+                </code></pre>
+            </p>
+            <h3>Usage:</h3>
+            <p>
+                As you can see from the above example, usage is pretty simple. Look at the
+                <a href="flexi-json-editor/jsoneditor.html">life example</a> demonstrating the component.
+            </p>
+            <p>
+                The <code>jsoneditor.css</code>
+                stylesheet is a default styling of the editor. The stylesheet is self-explanatory.
+                <code>.editor</code> is the wrapper for the whole component, <code>.item</code> contains a
+                <code>.property</code> and <code>.value</code> input fields which correspond to property and value
+                of a JSON object. <code>.item</code> contains other items in case of a nested object.
+                <code>.editing</code> is a class items gain when their respective input boxes are focused.
+                <code>.expander</code> is a <code>span</code> element representing the button for expanding
+                nested objects. Feel free to adapt the styling for your needs.
+            </p>
+            <p>
+                The options object appearing as the last argument to the <code>jsonEditor</code>
+                method contains only one property that can be set at this time, which is the
+                <code>change</code> callback. The <code>change</code> callback is called whenever
+                the JSON object passed as the first argument is changed.
+            </p>
+            <h3>Browser support</h3>
+            <p>
+                The JSON editor should be compatible with all browsers jQuery supports.
+                However, it's been tested only in IE7+, FF3+, Chrome and Safari. Please note
+                that the <a href="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"><code>json2</code></a> polyfill has to be included for browsers that do not
+                support the JSON object natively.
+            </p>
+        </div>
         <div class="article">
             <h2>A pure JavaScript color picker</h2>
             <p>Yes... you see it right, yet another color picker out there! 
@@ -73,11 +136,10 @@
 
         <div class="jointjs">
             <a href="http://www.jointjs.com">
-                <img class="logo" src="img/jointjs_logo.png" alt="JointJS"/><br/>
-                JavaScript diagramming library
+                <img class="logo" src="img/jointjs_logo.png" alt="JointJS"/>JointJS<br/>
+                <span>JavaScript diagramming library</span>
             </a>
         </div>
-
         <div class="mozilla unit">
             <a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/RegExp'
                title='JS RegExp toString'>
@@ -86,5 +148,11 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/5.16/styles/sunburst.min.css" />
+    <script src="http://yandex.st/highlightjs/5.16/highlight.min.js"></script>
+    <script>
+        hljs.tabReplace = '    ';
+        hljs.initHighlighting();
+    </script>
   </body>
 </html>
