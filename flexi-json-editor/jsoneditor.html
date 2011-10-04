@@ -7,13 +7,17 @@
 
     <style>
         #json {
-          margin: 50px;
+          margin: 10px;
         }
         h1 {
           font-family: Arial;
           color: #5A5C58;
           text-align: center;
           text-shadow: 1px 1px 1px #AAD1DD;
+        }
+        textarea {
+          width: 70%;
+          min-height: 70px;
         }
     </style>
 </head>
@@ -23,7 +27,8 @@
     <a href="http://www.daviddurman.com">Blog post & Usage</a>
 
     <div id="editor" class="editor"></div>
-    <pre id="json"></pre>
+    <textarea id="json"></textarea><br/>
+    <button id="rebuild">Rebuild</button>
 
     <script src="json2.js"></script>
     <script src="jquery.min.js"></script>
