@@ -12,26 +12,33 @@
 
 // Example:
 
-//     var myjson = { any: { json: { value: 1 } } }; 
-//     $('#mydiv').jsonEditor(myjson, { change: function() { /* called on every change */ } });
+//     var myjson = { any: { json: { value: 1 } } };
+//     var opt = { change: function() { /* called on every change */ } };
+//     /* opt.propertyElement = '<textarea>'; */ // element of the property field, <input> is default
+//     /* opt.valueElement = '<textarea>'; */  // element of the value field, <input> is default
+//     $('#mydiv').jsonEditor(myjson, opt);
 
 (function( $ ) {
 
     $.fn.jsonEditor = function(json, options) {
+        options = options || {};
+
         var K = function() {},
-            onchange = options ? (options.change || K) : K;
+            onchange = options.change || K;
 
         return this.each(function() {
-            JSONEditor($(this), json, onchange);
+            JSONEditor($(this), json, onchange, options.propertyElement, options.valueElement);
         });
         
     };
     
-    function JSONEditor(target, json, onchange) {
+    function JSONEditor(target, json, onchange, propertyElement, valueElement) {
         var opt = {
             target: target,
             onchange: onchange,
-            original: json
+            original: json,
+            propertyElement: propertyElement,
+            valueElement: valueElement
         };
         construct(opt, json, opt.target);
         $('.property, .value', opt.target).live('blur focus', function() {
@@ -41,6 +48,10 @@
 
     function isObject(o) { return Object.prototype.toString.call(o) == '[object Object]'; }
     function isArray(o) { return Object.prototype.toString.call(o) == '[object Array]'; }
+    function isBoolean(o) { return Object.prototype.toString.call(o) == '[object Boolean]'; }
+    function isNumber(o) { return Object.prototype.toString.call(o) == '[object Number]'; }
+    function isString(o) { return Object.prototype.toString.call(o) == '[object String]'; }
+    var types = 'object array boolean number string null';
 
     // Feeds object `o` with `value` at `path`. If value argument is omitted,
     // object at `path` will be deleted from `o`.
@@ -77,6 +88,22 @@
         }
         return o;
     }
+
+    function error(reason) { if (window.console) { console.error(reason); } }
+    
+    function parse(str) {
+        var res;
+        try { res = JSON.parse(str); }
+        catch (e) { res = null; error('JSON parse failed.'); }
+        return res;
+    }
+
+    function stringify(obj) {
+        var res;
+        try { res = JSON.stringify(obj); }
+        catch (e) { res = 'null'; error('JSON stringify failed.'); }
+        return res;
+    }
     
     function addExpander(item) {
         if (item.children('.expander').length == 0) {
@@ -88,7 +115,7 @@
             item.prepend(expander);
         }
     }
-
+    
     function construct(opt, json, root, path) {
         path = path || '';
 
@@ -96,19 +123,23 @@
         
         for (var key in json) {
             if (!json.hasOwnProperty(key)) continue;
-            
+
             var item     = $('<div>',   { 'class': 'item', 'data-path': path }),
-                property =   $('<input>', { 'class': 'property' }),
-                value    =   $('<input>', { 'class': 'value'    });
+                property =   $(opt.propertyElement || '<input>', { 'class': 'property' }),
+                value    =   $(opt.valueElement || '<input>', { 'class': 'value'    });
 
             if (isObject(json[key]) || isArray(json[key])) {
                 addExpander(item);
             }
+            
             item.append(property).append(value);
             root.append(item);
             
-            property.val(key);
-            value.val(JSON.stringify(json[key]));
+            property.val(key).attr('title', key);
+            var val = stringify(json[key]);
+            value.val(val).attr('title', val);
+
+            assignType(item, json[key]);
 
             listen(opt, json, property, value, key);
             
@@ -122,7 +153,8 @@
         $(el).parentsUntil(opt.target).each(function() {
             var path = $(this).data('path');
             path = (path ? path + '.' : path) + $(this).children('.property').val();
-            $(this).children('.value').val(JSON.stringify(def(opt.original, path, '')));
+            var val = stringify(def(opt.original, path, null));
+            $(this).children('.value').val(val).attr('title', val);
         });
     }
     
@@ -130,19 +162,24 @@
 
         property.change(function() {
             var path = $(this).parent().data('path'),
-                val = JSON.parse($(this).next().val());
+                val = parse($(this).next().val()),
+                newKey = $(this).val();
+
+            $(this).attr('title', newKey);
 
             feed(opt.original, (path ? path + '.' : '') + key);
-            feed(opt.original, (path ? path + '.' : '') + $(this).val(), val);
+            if (newKey) feed(opt.original, (path ? path + '.' : '') + newKey, val);
 
             updateParents(this, opt);
+
+            if (!newKey) $(this).parent().remove();
             
             opt.onchange();
         });
         
         value.change(function() {
             var key = $(this).prev().val(),
-                val = JSON.parse($(this).val()),
+                val = parse($(this).val() || 'null'),
                 item = $(this).parent(),
                 path = item.data('path');
 
@@ -150,12 +187,29 @@
             if (isObject(val) || isArray(val)) {
                 construct(opt, val, item, (path ? path + '.' : '') + key);
                 addExpander(item);
+            } else {
+                item.find('.expander, .item').remove();
             }
+
+            assignType(item, val);
 
             updateParents(this, opt);
             
             opt.onchange();
         });    
+    }
+
+    function assignType(item, val) {
+        var className = 'null';
+        
+        if (isObject(val)) className = 'object';
+        else if (isArray(val)) className = 'array';
+        else if (isBoolean(val)) className = 'boolean';
+        else if (isString(val)) className = 'string';
+        else if (isNumber(val)) className = 'number';
+
+        item.removeClass(types);
+        item.addClass(className);
     }
 
 })( jQuery );

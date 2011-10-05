@@ -5,10 +5,6 @@
     <link rel="stylesheet" href="jsoneditor.css"/>
     <title>Flexi JSON Editor</title>
 
-    <meta name="author" content="David Durman">
-    <meta name="keywords" content="David Durman, javascript, JSON, JSON editor, jQuery plugin">
-    <meta name="description" content="Try out a new jQuery plugin for editing JSON.">
-
     <style>
         #json {
           margin: 10px;
@@ -21,6 +17,33 @@
           text-align: center;
           text-shadow: 1px 1px 1px #AAD1DD;
         }
+
+        #legend {
+          display: inline;
+          margin-left: 100px;
+        }
+        #legend h2 {
+           display: inline;
+           font-size: 18px;
+           margin-right: 20px;
+        }
+        #legend span {
+          padding: 2px 4px;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          color: white;
+          font-weight: bold;
+          text-shadow: 1px 1px 1px black;
+          background-color: black;
+        }
+        #legend .string  { background-color: #009408; }
+        #legend .array   { background-color: #2D5B89; }
+        #legend .object  { background-color: #E17000; }
+        #legend .number  { background-color: #497B8D; }
+        #legend .boolean { background-color: #B1C639; }
+        #legend .null    { background-color: #B1C639; }
+
     </style>
 </head>
 
@@ -28,6 +51,16 @@
     <h1>JSON Editor</h1>
     <a href="http://www.daviddurman.com">Blog post & Usage</a>
 
+    <div id="legend">
+        <h2>Legend</h2>
+        <span class="array">array</span>
+        <span class="object">object</span>
+        <span class="string">string</span>
+        <span class="number">number</span>
+        <span class="boolean">boolean</span>
+        <span class="null">null</span>
+        <span>Remove item by deleting a property name.</span>
+    </div>
     <div id="editor" class="json-editor"></div>
     <textarea id="json"></textarea><br/>
     <button id="rebuild">Rebuild</button>
@@ -36,19 +69,5 @@
     <script src="jquery.min.js"></script>
     <script src="jquery.jsoneditor.js"></script>
     <script src="jsoneditor.js"></script>
-
-
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-5029684-5']);
-        _gaq.push(['_setDomainName', '.daviddurman.com']);
-        _gaq.push(['_trackPageview', '/JSON-EDITOR']);
-
-        (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
 </body>
 </html>
