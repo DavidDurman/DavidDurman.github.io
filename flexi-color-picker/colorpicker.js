@@ -15,21 +15,13 @@
         if (window.event && window.event.contentOverflow !== undefined) {
             return { x: window.event.offsetX, y: window.event.offsetY };
         }
-        // Webkit & Presto:
-//        if (evt.offsetX !== undefined && evt.offsetY !== undefined) {
-            // Normally, { x: evt.offsetX, y: evt.offsetY } would do.
-            // The problem is with custom events in Opera.
-            // initMouseEvent() from MouseEvent interface doesn't set up
-            // the values of offsetX/Y properties of the event object properly.
-            // They are always zero in Opera. This becomes a problem in passThrough() function below.
-            var bbox = evt.target.getBoundingClientRect();
-            return { x: evt.pageX - (bbox.left + window.pageXOffset), y: evt.pageY - (bbox.top + window.pageYOffset) };
-        /*
+        // Webkit:
+        if (evt.offsetX !== undefined && evt.offsetY !== undefined) {
+            return { x: evt.offsetX, y: evt.offsetY };
         }
-        // Gecko:
-        var wrapper = evt.target.tagName.toLowerCase() == 'rect' ? evt.target.parentNode.parentNode : evt.target;
+        // Firefox:
+        var wrapper = evt.target.parentNode.parentNode;
         return { x: evt.layerX - wrapper.offsetLeft, y: evt.layerY - wrapper.offsetTop };
-        */
     }
 
     /**
@@ -156,7 +148,7 @@
         V = Math.max(r, g, b);
         C = V - Math.min(r, g, b);
         H = (C == 0 ? null :
-             V == r ? (g - b) / C :
+             V == r ? (g - b) / C + (g < b ? 6 : 0) :
              V == g ? (b - r) / C + 2 :
                       (r - g) / C + 4);
         H = (H % 6) * 60;
@@ -168,30 +160,24 @@
      * Return click event handler for the slider.
      * Sets picker background color and calls ctx.callback if provided.
      */  
-    function slideListener(ctx, slideElement, pickerElement, startDragging) {
+    function slideListener(ctx, slideElement, pickerElement) {
         return function(evt) {
-            if (startDragging) ctx.dragging = true;
-            if (!ctx.dragging) return;
-            
             evt = evt || window.event;
-
             var mouse = mousePosition(evt);
             ctx.h = mouse.y / slideElement.offsetHeight * 360 + hueOffset;
+            ctx.s = ctx.v = 1;
             var c = hsv2rgb(ctx.h, 1, 1);
             pickerElement.style.backgroundColor = c.hex;
             ctx.callback && ctx.callback(c.hex, { h: ctx.h - hueOffset, s: ctx.s, v: ctx.v }, { r: c.r, g: c.g, b: c.b }, undefined, mouse);
         }
-    }
+    };
 
     /**
      * Return click event handler for the picker.
      * Calls ctx.callback if provided.
      */  
-    function pickerListener(ctx, pickerElement, startDragging) {
+    function pickerListener(ctx, pickerElement) {
         return function(evt) {
-            if (startDragging) ctx.dragging = true;
-            if (!ctx.dragging) return;
-            
             evt = evt || window.event;
             var mouse = mousePosition(evt),
                 width = pickerElement.offsetWidth,            
@@ -202,23 +188,7 @@
             var c = hsv2rgb(ctx.h, ctx.s, ctx.v);
             ctx.callback && ctx.callback(c.hex, { h: ctx.h - hueOffset, s: ctx.s, v: ctx.v }, { r: c.r, g: c.g, b: c.b }, mouse);
         }
-    }
-
-    function stopDragging(ctx) {
-        return function() {
-            ctx.dragging = false;
-        }
-    }
-
-    function addListener(el, event, listener) {
-        if (el.addEventListener) {
-            el.addEventListener(event, listener, false);
-        } else if (el.attachEvent) {
-            el.attachEvent('on' + event, listener);
-        } else {
-            el['on' + event] = listener;
-        }
-    }
+    };
 
     /**
      * ColorPicker.
@@ -241,17 +211,16 @@
             pickerElement.appendChild(picker.cloneNode(true));
         } else {
             slideElement.innerHTML = slide;
-            pickerElement.innerHTML = picker;
+            pickerElement.innerHTML = picker;            
         }
 
-        addListener(slideElement, 'mousedown', slideListener(this, slideElement, pickerElement, true));
-        addListener(pickerElement, 'mousedown', pickerListener(this, pickerElement, true));
-
-        addListener(slideElement, 'mouseup', stopDragging(this));
-        addListener(pickerElement, 'mouseup', stopDragging(this));
-            
-        addListener(slideElement, 'mousemove', slideListener(this, slideElement, pickerElement));
-        addListener(pickerElement, 'mousemove', pickerListener(this, pickerElement));
+        if (slideElement.attachEvent) {
+            slideElement.attachEvent('onclick', slideListener(this, slideElement, pickerElement));
+            pickerElement.attachEvent('onclick', pickerListener(this, pickerElement));
+        } else if (slideElement.addEventListener) {
+            slideElement.addEventListener('click', slideListener(this, slideElement, pickerElement), false);
+            pickerElement.addEventListener('click', pickerListener(this, pickerElement), false);
+        }
     };
 
     /**
@@ -303,6 +272,9 @@
         setColor(this, rgb2hsv(parseInt(hex.substr(1, 2), 16), parseInt(hex.substr(3, 2), 16), parseInt(hex.substr(5, 2), 16)), undefined, hex);
     };
 
+    ColorPicker.hsv2rgb = hsv2rgb;
+    ColorPicker.rgb2hsv = rgb2hsv;
+
     /**
      * Helper to position indicators.
      * @param {HTMLElement} slideIndicator DOM element representing the indicator of the slide area.
@@ -321,57 +293,6 @@
             pickerIndicator.style.top = (mousePicker.y - pickerIndicator.offsetHeight/2) + 'px';
             pickerIndicator.style.left = (mousePicker.x - pickerIndicator.offsetWidth/2) + 'px';
         } 
-    };
-
-    function passThrough(el, event, target) {
-        if (document.createEvent) {
-            
-            addListener(el, event, function(oldEvt) {
-
-                // We are only interested in events happening above the target element.
-                var bbox = target.getBoundingClientRect();
-                // Take page scroll into account.
-                bbox.left += window.pageXOffset;
-                bbox.top  += window.pageYOffset;
-                
-                if (bbox.top               < oldEvt.clientY &&
-                    bbox.top + bbox.height > oldEvt.clientY &&
-                    bbox.left              < oldEvt.clientX &&
-                    bbox.left + bbox.width > oldEvt.clientX) {
-
-                    var evt = document.createEvent('MouseEvent');
-                    evt.initMouseEvent(event, true, true, window, oldEvt.detail, oldEvt.screenX, oldEvt.screenY, oldEvt.clientX, oldEvt.clientY, oldEvt.ctrlKey, oldEvt.altKey, oldEvt.shiftKey, oldEvt.metaKey, oldEvt.button, null);
-                    target.dispatchEvent(evt);
-                }
-            });
-        }
-    }
-    
-    /**
-     * Implements pass-through method on indicators. We are not interrested on
-     * events caught by indicators. Instead, we want those events to be passed-through
-     * the slider/picker.
-     * Trivial solution would be to set pointer-events: none; CSS property on indicators but
-     * there is no equivalent for IEs and Opera.
-     */
-    ColorPicker.fixIndicators = function(slideIndicator, pickerIndicator, slide, picker) {
-        
-        slideIndicator.style.pointerEvents = 'auto';
-        if (slideIndicator.style.pointerEvents == 'auto') {
-            // pointer-events supported.
-            slideIndicator.style.pointerEvents = 'none';
-            pickerIndicator.style.pointerEvents = 'none';
-        } else {
-            // Simulate pointer-events: none.
-            var events = ['mousedown', 'mousemove', 'mouseup'],
-                idx = events.length;
-
-            while (idx--) {
-                passThrough(slideIndicator, events[idx], slide);
-                passThrough(pickerIndicator, events[idx], picker);
-            }
-        }
-
     };
     
     window.ColorPicker = ColorPicker;
