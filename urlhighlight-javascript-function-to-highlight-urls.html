@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href='http://fonts.googleapis.com/css?family=Philosopher' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <meta name="author" content="David Durman">
+    <meta name="keywords" content="David Durman, javascript, web applications, programming">
+    <meta name="description" content="Hi, my name is David Durman and I'm a JavaScript developer based in Amsterdam, the Netherlands.">
+    <title>David Durman</title>
+
+  </head>
+  <body>
+
+      <article>
+          <header>
+    <h1>JavaScript function to highlight URLs</h1>
+    <span class="date">September 3rd, 2012</span>
+</header>
+
+<p>
+    Sometimes you want to show the user a URL that is nicely visually structured. This happens especially in
+    cases where it is important to focus on e.g. query parameters of an URL. I had this need
+    and so I created <b><a href="http://github.com/DavidDurman/urlhighlight">urlhighlight</a></b>, a very little (151 loc) JavaScript function that takes a URL as a parameter
+    and returns HTML that wraps components of that URL. These components can be then styled in CSS.</p>
+
+<p>
+    Let me jump directly to an example that shows <b>urlhighlight()</b> in action.</p>
+
+<link href="assets/urlhighlight.css" rel="stylesheet" type="text/css" />
+<script src="assets/urlhighlight.min.js" type="text/javascript"></script>
+
+<table id="urlhighlight-holder" style="font-size: 12px"></table>
+<br/><br/>
+
+<script>
+    var urls = [
+
+    'http://www.example.com',
+    'data-uri:image/jpeg,base64;foo',
+    'http://www.example.com?foo=5&bar=baz',
+    'http://www.example.com?foo=5',
+    'http://www.example.com:8080?foo=5',
+    'http://www.example.com?foo=5&bar=baz#top',
+    'http://www.example.com/section/article?foo=5&bar=baz#top'
+
+    ];
+
+    var html = '';
+
+    for (var i = 0; i < urls.length; i++) {
+        html += '<tr><td>' + urls[i] + '</td><td>' + urlhighlight({ url: urls[i] }) + '</td></tr>';
+    }
+
+    document.getElementById('urlhighlight-holder').innerHTML = html;
+</script>
+
+<h3>Example</h3>
+
+<p>
+    <code>urlhiglight({ url: 'http://www.example.com?foo=5&bar=baz#top' })</code> produces this HTML snippet:
+
+    <pre>
+&lt;span class="url-protocol"&gt;http:&lt;/span&gt;
+&lt;span class="url-protocol-delimiter"&gt;//&lt;/span&gt;
+&lt;span class="url-host"&gt;www.example.com&lt;/span&gt;
+&lt;span class="url-query-delimiter"&gt;?&lt;/span&gt;
+&lt;span class="url-query-param-name"&gt;bar&lt;/span&gt;
+&lt;span class="url-query-param-assign"&gt;=&lt;/span&gt;
+&lt;span class="url-query-param-value"&gt;baz&lt;/span&gt;
+&lt;span class="url-query-param-delimiter"&gt;&amp;&lt;/span&gt;
+&lt;span class="url-query-param-name"&gt;foo&lt;/span&gt;
+&lt;span class="url-query-param-assign"&gt;=&lt;/span&gt;
+&lt;span class="url-query-param-value"&gt;5&lt;/span&gt;
+&lt;span class="url-hash-delimiter"&gt;#&lt;/span&gt;
+&lt;span class="url-hash"&gt;top&lt;/span&gt;
+    </pre>
+
+which is then styled in the included CSS stylesheet.</p>
+
+<h3>Implementation</h3>
+
+<p>Parsing URLs is not that straighforward as it might look at the first glance. For the curious ones, 
+<a href="http://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a> document defines BNF grammar for URL syntax. Fortunately, 
+we can take advantage of the URL parser implemented in browsers. <b>urlhighlight</b> uses this smart <a href="http://james.padolsey.com/javascript/parsing-urls-with-the-dom/">URL parsing DOM technique shown by James Padolsey</a>
+with a slight modification to support data URLs:
+
+<pre><code>
+
+    function parse(url) {
+         
+        a.href = url;
+
+        var parsedUrl = {
+
+            source: url,
+            protocol: a.protocol,
+            host: a.hostname,
+            port: a.port,
+            query: a.search,
+            params: (function() {
+                
+                var queryParams = {},
+                    segments = a.search.replace(/^\?/,'').split('&'),
+                    idx = segments.length;
+                    
+                while (idx--) {
+                    if (segments[idx]) {
+                        var nameValue = segments[idx].split('=');
+                        queryParams[nameValue[0]] = nameValue[1];
+                    }
+                }
+                return queryParams;
+            })(),
+            
+            file: (a.pathname.match(/\/([^\/?#]+)$/i) || [,''])[1],
+            hash: a.hash.replace('#',''),
+            path: a.pathname.replace(/^([^\/])/,'/$1'),
+            relative: (a.href.match(/tps?:\/\/[^\/]+(.+)/) || [,''])[1],
+            segments: a.pathname.replace(/^\//,'').split('/')
+        };
+
+        if (parsedUrl.protocol === 'data-uri:') {
+            
+            parsedUrl.mimeType = a.pathname.replace(/,.*$/, '');
+            parsedUrl.encoding = a.pathname.replace(/(^.*,)(.*)(;.*$)/, '$2');
+            parsedUrl.data = a.pathname.replace(/(^.*,)(.*)(;.*$)/, '$3').substring(1);
+        }
+        
+        return parsedUrl;
+    }
+
+</code></pre>
+
+<h3>Advanced usage</h3>
+
+<p>
+    <b>urlhighlight</b> also supports custom templates. This means that the default <code>&lt;span&gt;</code>
+    elements that are used to produce the resulting HTML snippet can be replaced with whatever string you defined. An example
+    call with different template for the <em>protocol</em> component could look something like:</p>
+
+    <pre><code>
+
+urlhighlight({ 
+    url: 'http://www.example.com', 
+    protocol: '&lt;div class="myprotocol"&gt;&#123;&#123;protocol&#125;&#125;&lt;/div&gt;' 
+})
+
+    </code></pre>
+
+<p>
+    This is the complete list of all the template names that can be changed:</p>
+
+    <ul>
+        <li>protocol</li>
+        <li>protocolDelimiter</li>
+        <li>host</li>
+        <li>portDelimiter</li>
+        <li>port</li>
+        <li>queryDelimiter</li>
+        <li>queryParamName</li>
+        <li>queryParamAssign</li>
+        <li>queryParamValue</li>
+        <li>queryParamDelimiter</li>
+        <li>hashDelimiter</li>
+        <li>hash</li>
+        <li>mimeType</li>
+        <li>urlmimeTypeDelimiter</li>
+        <li>encoding</li>
+        <li>encodingDelimiter</li>
+        <li>data</li>
+    </ul>
+
+<p>
+    Following list of all the CSS classes that are used in the default templates:</p>
+
+    <ul>
+        <li>url-protocol</li>
+        <li>url-protocol-delimiter</li>
+        <li>url-host</li>
+        <li>url-port-delimiter</li>
+        <li>url-port</li>
+        <li>url-path</li>
+        <li>url-query-delimiter</li>
+        <li>url-query-param-name</li>
+        <li>url-query-param-assign</li>
+        <li>url-query-param-value</li>
+        <li>url-query-param-delimiter</li>
+        <li>url-hash-delimiter</li>
+        <li>url-hash</li>
+    </ul>
+
+
+<p>
+    data-uri specific:</p>
+
+    <ul>
+        <li>url-mime-type</li>
+        <li>url-mime-type-delimiter</li>
+        <li>url-encoding</li>
+        <li>url-encoding-delimiter</li>
+        <li>url-data</li>
+    </ul>
+
+      </article>
+
+      <aside>
+          <h1><a href="http://www.daviddurman.com">David Durman</a></h1>
+
+          Hi there, thanks for coming! My name is David Durman and I'm a JavaScript developer based in Amsterdam, the Netherlands.
+          I enjoy web technologies be it on front-end or back-end sides. I'm the creator of <a href="http://figurepool.com">FigurePool</a>, 
+          <a href="http://jsonmate.com">JSONMate</a>, <a href="http://jointjs.com">JointJS</a>, <a href="http://www.daviddurman.com/flexi-color-picker">FlexiColorPicker</a>
+          and <a href="https://github.com/DavidDurman">others</a>.
+
+
+          <hr />
+
+          <label>Contact me on:</label>
+
+          <a href="http://www.linkedin.com/in/daviddurman">LinkedIn</a>
+
+          <a href="https://twitter.com/DavidDurman" class="twitter-follow-button" data-show-count="false">Follow @DavidDurman</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          <a href="https://github.com/DavidDurman" class="github-follow-button">Follow On GitHub</a>
+          <script type="text/javascript" src="http://octophile.com/widgets.js"></script>
+      </aside>
+
+
+    <link rel="stylesheet" href="http://yandex.st/highlightjs/5.16/styles/sunburst.min.css" />
+    <script src="http://yandex.st/highlightjs/5.16/highlight.min.js"></script>
+    <script>
+        hljs.tabReplace = '    ';
+        hljs.initHighlighting();
+    </script>
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5029684-5']);
+        _gaq.push(['_setDomainName', '.daviddurman.com']);
+        _gaq.push(['_trackPageview', '/HOME']);
+
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+  </body>
+</html>
