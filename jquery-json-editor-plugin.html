@@ -16,10 +16,11 @@
   <body>
 
       <article>
-          <h2>
-    <a href="jquery-json-editor-plugin.html">JSON editor jQuery plugin</a>
+          <header>
+    <h1>JSON editor jQuery plugin</h1>
     <span class="date">October 4th, 2011</span>
-</h2>
+</header>
+
 <p>
     JSON format became quite a standard format for data exchange. Its simple syntax, JavaScript compatibility and human 
     readability are probably the reasons for its wide adoption. I work with JSON on a daily basis and therefore
@@ -32,18 +33,55 @@
     Feel free to comment on it, use it, contribute to it... MIT licensed.
 </p>
 
-<h2>
-    <a href="pure-javascript-color-picker.html">A pure JavaScript color picker</a>
-    <span class="date">April 22nd, 2011</span>
-</h2>
+<h3>Example first</h3>
 <p>
-    There is plenty of color picker components on the web but very few of them are built with pure JavaScript, 
-    without using images, Flash or 1px divs. Moreover, it's difficult to find one that works
-    on mobile devices as well. Let me introduce a plain JavaScript color picker written in 300 lines
-    of code including comments. Discover SVG!</p>
-<p>
-    Try it yourself: <a href="http://www.daviddurman.com/flexi-color-picker">Flexi Color Picker</a>.</p>
+                <pre><code>
+&lt;link rel="stylesheet" type="text/css" href="jsoneditor.css"/&gt;
 
+&lt;div id="editor" class="json-editor"&gt;&lt;/div&gt;
+&lt;pre id="json"&gt;&lt;/pre&gt;
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.jsoneditor.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    var json = {
+       "string": "foo",
+       "number": 5,
+       "array": [1, 2, 3],
+       "object": {
+         "property": "value",
+         "subobj": {
+         "arr": ["foo", "ha"],
+         "numero": 1
+       }
+    };
+    $('#editor').jsonEditor(json, { change: function() {
+        $('#json').html(JSON.stringify(json));
+    } });
+&lt;/script&gt;
+                </code></pre>
+            </p>
+<h3>Usage</h3>
+<p><code>jsonEditor(jsonObject, optionsObject)</code> expects a JSON object as the first argument.
+    Whenever the user changes a property of the JSON object through the visual tree viewer/editor, 
+    the JSON object is changed as well and the <code>change()</code> callback of the <code>optionsObject</code>
+    is triggered.<p>
+<p>
+    The <code>jsoneditor.css</code>
+    stylesheet is a default styling of the editor. The stylesheet is self-explanatory.
+    <code>.json-editor</code> is the wrapper for the whole component, <code>.item</code> contains a
+    <code>.property</code> and <code>.value</code> input fields which correspond to a property and value
+    of the JSON object. <code>.item</code> contains other items in case of a nested object.
+    <code>.editing</code> is a class items gain when their respective input boxes gain focus.
+    <code>.expander</code> is a <code>span</code> element representing the button for expanding
+    nested objects. Feel free to adapt the styling for your needs.</p>
+<h3>Browser support</h3>
+<p>
+    The JSON editor should be compatible with all browsers jQuery supports.
+    However, it's been tested only in IE7+, FF3+, Chrome and Safari. Please note
+    that the <a href="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"><code>json2</code></a> polyfill has to be included for browsers that do not
+    support the JSON object natively.
+</p>
+</div>
 
       </article>
 
