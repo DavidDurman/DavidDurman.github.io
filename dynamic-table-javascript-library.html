@@ -173,7 +173,11 @@ new DynamicTable("t1", {
 <br/>
 <p>
     DynamicTable should be fast enough to handle hundreds or thousands of rows. Sorting and filtering is run on
-    a disconnected DOM tree. There are four default sort functions available at this time (alphanumeric, numbers, czech and english date formats)
+    a disconnected DOM tree. A quick manual test in the latest Google Chrome and Firefox on my MacBook Pro 2.3GHz Intel Core i7 showed that sorting on a table with 2000 rows was instant, 
+    a very little slowdown was observable with more than 6000 rows.</p>
+
+<p>
+    There are four default sort functions available at this time (alphanumeric, numbers, czech and english date formats)
     but new custom sort or even filter function can be added very easily either through an options object passed as the second argument to the
     <code>DynamicTable</code> constructor function or
     as a direct extension of <code>DynamicTable.prototype.sortFunctions</code> object and rewrite of <code>DynamicTable.prototype.filterFunction</code>.
