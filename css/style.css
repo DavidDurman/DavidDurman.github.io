@@ -1,3 +1,36 @@
+/*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 3.0.0pr2 ??? TODO: fill in the right version so that we can track changes.
+*/
+html{color: #000; background: #fff;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, p, blockquote, th, td, input, textarea{margin: 0; padding: 0;}
+table{border-collapse: collapse; border-spacing: 0;}
+fieldset, img{border: 0;}
+address, caption, cite, code, dfn, th, var, optgroup{font-style: inherit; font-weight: inherit;}
+del, ins{text-decoration: none;}
+li{list-style: none;}
+caption, th{text-align: left;}
+h1, h2, h3, h4, h5, h6{font-size: 100%; font-weight: normal;}
+q: before, q: after{content: "";}
+abbr, acronym{border: 0; font-variant: normal;}
+sup{vertical-align: baseline;}
+sub{vertical-align: baseline;}
+legend{color: #000;}
+input, button, textarea, select, optgroup, option{font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit;}
+input, button, textarea, select{*font-size: 100%;}
+
+
+
+
+@font-face {
+  font-family: 'Philosopher';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Philosopher'), url(http://themes.googleusercontent.com/static/fonts/philosopher/v4/OttjxgcoEsufOGSINYBGLbrIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+}
+
 body {
    line-height: 20px;
    font-family: Helvetica, sans-serif;
@@ -19,6 +52,10 @@ a:hover {
     background-color: #FCF8CB;
     border-radius: 10px;
     text-decoration: none;
+}
+
+img {
+   max-width: 600px;
 }
 
 ul {
@@ -87,10 +124,11 @@ h2 {
 
 h2,
 article header h1 {
-    font-family: 'Philosopher', arial, serif;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
+   font-family: 'Philosopher', arial, serif;
+   font-size: 28px;
+   font-weight: bold;
+   color: #333;
+   line-height: 34px;
 }
 
 p {
@@ -109,4 +147,46 @@ pre code {
   font-size: .7em !important;
   border-radius: 5px;
    margin-bottom: 20px;
+}
+
+/* FigurePool logo */
+
+.figurepool {
+   font-family: 'Yanone Kaffeesatz', sans-serif;
+   font-weight: bold;
+   vertical-align: baseline;
+   font-size: 20px;
+   line-height: 22px;
+   color: black;
+}
+.figurepool span {
+   font-size: .75em;
+   color: #7A9B23;
+}
+.figurepool.dark {
+   color: white;
+}
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Yanone Kaffeesatz Bold'), local('YanoneKaffeesatz-Bold'), url(http://themes.googleusercontent.com/static/fonts/yanonekaffeesatz/v4/We_iSDqttE3etzfdfhuPRbJjSLMfVFmTspsxH0yGxjj3rGVtsTkPsbDajuO5ueQw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Yanone Kaffeesatz Light'), local('YanoneKaffeesatz-Light'), url(http://themes.googleusercontent.com/static/fonts/yanonekaffeesatz/v4/We_iSDqttE3etzfdfhuPRbHVephy08vG3A_n649omsL3rGVtsTkPsbDajuO5ueQw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Yanone Kaffeesatz ExtraLight'), local('YanoneKaffeesatz-ExtraLight'), url(http://themes.googleusercontent.com/static/fonts/yanonekaffeesatz/v4/We_iSDqttE3etzfdfhuPRUDqw7A1uQWuQSM-rfHaMOr3rGVtsTkPsbDajuO5ueQw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Yanone Kaffeesatz';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Yanone Kaffeesatz Regular'), local('YanoneKaffeesatz-Regular'), url(http://themes.googleusercontent.com/static/fonts/yanonekaffeesatz/v4/YDAoLskQQ5MOAgvHUQCcLQa6gm6bS00u2Qn-iPLo1Go.woff) format('woff');
 }

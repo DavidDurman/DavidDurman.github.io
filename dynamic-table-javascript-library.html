@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <meta name="author" content="David Durman">
+
+    
+      <meta name="keywords" content="HTML table, JavaScript library dynamic table">
+    
+    
+      <meta name="description" content="Turn your HTML table elements into interactive tables with DynamicTable JavaScript library.">
+    
+    
+      <title>DynamicTable - JavaScript library that turns your HTML tables into interactive tables.</title>
+    
+  </head>
+
+  <body>
+
+      <article>
+          
+
+<header>
+    <h1>DynamicTable - turn your HTML table elements into interactive tables </h1>
+    <span class="date">September 12th, 2012</span>
+</header>
+
+<p>
+    Do you also like the moments when you browse through the code you wrote years ago? I've 
+    just had one of these and discovered a tiny JavaScript library which I wrote about five years ago that turns your HTML table elements into
+    interactive tables with sorting, filtering and paging and couple of visual effects as well.
+    A JavaScript library that runs on Firefox 2, IE 6 and other ancient browsers without
+    any external help. No jQuery, Prototype or any other help. I decided to share my excitment with you and
+    so I translated documentation and demo from Czech to English and here it is.</p>
+
+<p>
+    The code can be found on <a href="http://github.com/DavidDurman/DynamicTable">Github</a> and is licensed
+    under the MIT license.</p>
+
+
+<link href="assets/dynamic_table.css" rel="stylesheet" type="text/css" />
+<script src="assets/dynamic_table.js" type="text/javascript"></script>
+
+<br />
+
+<table id="t1">
+
+  <tr><td>AFN</td><td>Afghanistan Afghanis</td><td >75.3966389450</td><td>0.0132631907</td></tr>
+  <tr><td>ALL</td><td>Albania Leke</td><td >149.7174910491</td><td>0.0066792463</td></tr>
+  <tr><td>ALL</td><td>Albania Leke</td><td >120.1585000394</td><td>0.0083223409</td></tr>
+  <tr><td>DZD</td><td>Algeria Dinars</td><td >99.2654544315</td><td>0.0100739981</td></tr>
+  <tr><td>DZD</td><td>Algeria Dinars</td><td >237.3437015458</td><td>0.0042132991</td></tr>
+  <tr><td>ARS</td><td>Argentina Pesos</td><td >4.9634293411</td><td>0.2014736045</td></tr>
+  <tr><td>AUD</td><td>Australia Dollars</td><td >7.1224860217</td><td>0.1404004159</td></tr>
+  <tr><td>AUD</td><td>Australia Dollars</td><td >1.6790396091</td><td>0.5955785644</td></tr>
+  <tr><td>BSD</td><td>Bahamas Dollars</td><td >1.5661952419</td><td>0.6384900000</td></tr>
+  <tr><td>BHD</td><td>Bahrain Dinars</td><td >0.5903772964</td><td>1.6938320732</td></tr>
+  <tr><td>BDT</td><td>Bangladesh Taka</td><td >107.4409935943</td><td>0.0093074344</td></tr>
+  <tr><td>BBD</td><td>Barbados Dollars</td><td >3.1088975632</td><td>0.3216574299</td></tr>
+  <tr><td>BMD</td><td>Bermuda Dollars</td><td >1.5661952419</td><td>0.6384900000</td></tr>
+  <tr><td>BRL</td><td>Brazil Reais</td><td >2.6100330567</td><td>0.3831369099</td></tr>
+  <tr><td>BGN</td><td>Bulgaria Leva</td><td >1.9248539683</td><td>0.5195199306</td></tr>
+  <tr><td>XOF</td><td>CFA BCEAO Francs </td><td >655.9570000000</td><td>0.0015244902</td></tr>
+  <tr><td>XAF</td><td>CFA BEAC Francs</td><td >655.9570000000</td><td>0.0015244902</td></tr>
+  <tr><td>CAD</td><td>Canada Dollars</td><td >1.5876523673</td><td>0.6298608062</td></tr>
+  <tr><td>CLP</td><td>Chile Pesos</td><td >711.0526398221</td><td>0.0014063656</td></tr>
+  <tr><td>CNY</td><td>China Yuan Renminbi</td><td >10.9798117433</td><td>0.0910762428</td></tr>
+  <tr><td>COP</td><td>Colombia Pesos</td><td >2758.8529155175</td><td>0.0003624695</td></tr>
+  <tr><td>XPF</td><td>Comptoirs Français du Pacifique Francs</td><td >119.3317422434</td><td>0.0083800000</td></tr>
+  <tr><td>CRC</td><td>Costa Rica Colones</td><td >769.3151031455</td><td>0.0012998575</td></tr>
+  <tr><td>HRK</td><td>Croatia Kuna</td><td >7.2621340976</td><td>0.1377005694</td></tr>
+  <tr><td>CZK</td><td>Czech Republic Koruny</td><td >123.6113329888</td><td>0.0080898731</td></tr>
+  <tr><td>CZK</td><td>Czech Republic Koruny</td><td >25.2783912042</td><td>0.0395594796</td></tr>
+  <tr><td>DKK</td><td>Denmark Kroner</td><td >7.4795219972</td><td>0.1336983834</td></tr>
+  <tr><td>DOP</td><td>Dominican Republic Pesos</td><td >52.8371626807</td><td>0.0189260730</td></tr>
+  <tr><td>DOP</td><td>Dominican Republic Pesos</td><td >61.9779918245</td><td>0.0161347596</td></tr>
+  <tr><td>XCD</td><td>East Caribbean Dollars</td><td >4.1504173910</td><td>0.2409396226</td></tr>
+  <tr><td>EGP</td><td>Egypt Pounds</td><td >8.3966076211</td><td>0.1190957164</td></tr>
+  <tr><td>EEK</td><td>Estonia Krooni</td><td >15.6466400000</td><td>0.0639114851</td></tr>
+  <tr><td>EUR</td><td>Euro</td><td >4.1780000000</td><td>0.2393489708</td></tr>
+  <tr><td>EUR</td><td>Euro</td><td >1.0000000000</td><td>1.0000000000</td></tr>
+  <tr><td>FJD</td><td>Fiji Dollars</td><td >2.3446036555</td><td>0.4265113200</td></tr>
+  <tr><td>FJD</td><td>Fiji Dollars</td><td >2.8580718561</td><td>0.3498862346</td></tr>
+  <tr><td>XAU</td><td>Gold Ounces</td><td >0.0017694084</td><td>565.1606477424</td></tr>
+  <tr><td>HKD</td><td>Hong Kong Dollars</td><td >12.2030102273</td><td>0.0819469935</td></tr>
+  <tr><td>HUF</td><td>Hungary Forint</td><td >247.9130475425</td><td>0.0040336723</td></tr>
+  <tr><td>XDR</td><td>IMF Special Drawing Rights</td><td >0.9540000000</td><td>1.0482180294</td></tr>
+  <tr><td>ISK</td><td>Iceland Kronur</td><td >115.0699306176</td><td>0.0086903676</td></tr>
+  <tr><td>ISK</td><td>Iceland Kronur</td><td >460.9701420539</td><td>0.0021693379</td></tr>
+  <tr><td>INR</td><td>India Rupees</td><td >210.1952262369</td><td>0.0047574820</td></tr>
+  <tr><td>INR</td><td>India Rupees</td><td >62.7261194380</td><td>0.0159423221</td></tr>
+  <tr><td>IDR</td><td>Indonesia Rupiahs</td><td >14424.9714169368</td><td>0.0000693242</td></tr>
+  <tr><td>IRR</td><td>Iran Rials</td><td >43966.4145092327</td><td>0.0000227446</td></tr>
+  <tr><td>IRR</td><td>Iran Rials</td><td >14037.8079531394</td><td>0.0000712362</td></tr>
+  <tr><td>IQD</td><td>Iraq Dinars</td><td >1880.2173878996</td><td>0.0005318534</td></tr>
+  <tr><td>ILS</td><td>Israel New Shekels</td><td >5.4581904180</td><td>0.1832109039</td></tr>
+  <tr><td>JMD</td><td>Jamaica Dollars</td><td >113.1576062272</td><td>0.0088372318</td></tr>
+  <tr><td>JPY</td><td>Japan Yen</td><td >163.5108459020</td><td>0.0061158023</td></tr>
+  <tr><td>JPY</td><td>Japan Yen</td><td >424.9646884994</td><td>0.0023531367</td></tr>
+  <tr><td>JOD</td><td>Jordan Dinars</td><td >1.1104324265</td><td>0.9005500705</td></tr>
+  <tr><td>KES</td><td>Kenya Shillings</td><td >97.4173440461</td><td>0.0102651125</td></tr>
+  <tr><td>KES</td><td>Kenya Shillings</td><td >302.9679399834</td><td>0.0033006793</td></tr>
+  <tr><td>KWD</td><td>Kuwait Dinars</td><td >0.4162163855</td><td>2.4025964252</td></tr>
+  <tr><td>KWD</td><td>Kuwait Dinars</td><td >1.5812060486</td><td>0.6324286458</td></tr>
+  <tr><td>LBP</td><td>Lebanon Pounds</td><td >2366.5210105092</td><td>0.0004225612</td></tr>
+  <tr><td>MYR</td><td>Malaysia Ringgits</td><td >4.9326536046</td><td>0.2027306355</td></tr>
+  <tr><td>MUR</td><td>Mauritius Rupees</td><td >40.2120628358</td><td>0.0248681597</td></tr>
+  <tr><td>MXN</td><td>Mexico Pesos</td><td >23.6918977588</td><td>0.0422085225</td></tr>
+  <tr><td>MXN</td><td>Mexico Pesos</td><td >16.3844382841</td><td>0.0610335236</td></tr>
+  <tr><td>MAD</td><td>Morocco Dirhams</td><td >11.4802658348</td><td>0.0871059969</td></tr>
+  <tr><td>NZD</td><td>New Zealand Dollars</td><td >2.0023023070</td><td>0.4994250851</td></tr>
+  <tr><td>NOK</td><td>Norway Kroner</td><td >20.2058368964</td><td>0.0494906499</td></tr>
+  <tr><td>NOK</td><td>Norway Kroner</td><td >8.0245579414</td><td>0.1246174565</td></tr>
+  <tr><td>OMR</td><td>Oman Rials</td><td >0.6029068584</td><td>1.6586309910</td></tr>
+  <tr><td>OMR</td><td>Oman Rials</td><td >1.3655840342</td><td>0.7322874133</td></tr>
+  <tr><td>PKR</td><td>Pakistan Rupees</td><td >100.6906921578</td><td>0.0099314046</td></tr>
+  <tr><td>XPD</td><td>Palladium Ounces</td><td >0.0035474411</td><td>281.8933350005</td></tr>
+  <tr><td>PEN</td><td>Peru Nuevos Soles</td><td >4.3437641936</td><td>0.2302150751</td></tr>
+  <tr><td>PHP</td><td>Philippines Pesos</td><td >65.4982852167</td><td>0.0152675753</td></tr>
+  <tr><td>XPT</td><td>Platinum Ounces</td><td >0.0008003042</td><td>1249.5249300061</td></tr>
+  <tr><td>PLN</td><td>Poland Zlotych</td><td >3.4392864414</td><td>0.2907579863</td></tr>
+  <tr><td>QAR</td><td>Qatar Riyals</td><td >5.7009306396</td><td>0.1754099573</td></tr>
+  <tr><td>QAR</td><td>Qatar Riyals</td><td >3.9165393494</td><td>0.2553274487</td></tr>
+  <tr><td>RON</td><td>Romania New Lei</td><td >3.6446929474</td><td>0.2743715354</td></tr>
+  <tr><td>RUB</td><td>Russia Rubles</td><td >68.6687152500</td><td>0.0145626723</td></tr>
+  <tr><td>RUB</td><td>Russia Rubles</td><td >36.9982301994</td><td>0.0270283199</td></tr>
+  <tr><td>SAR</td><td>Saudi Arabia Riyals</td><td >5.8744853639</td><td>0.1702276775</td></tr>
+  <tr><td>XAG</td><td>Silver Ounces</td><td >0.3595153564</td><td>2.7815223528</td></tr>
+  <tr><td>XAG</td><td>Silver Ounces</td><td >0.0931145704</td><td>10.7394578043</td></tr>
+  <tr><td>SGD</td><td>Singapore Dollars</td><td >2.1326895644</td><td>0.4688914958</td></tr>
+  <tr><td>SKK</td><td>Slovakia Koruny</td><td >32.3998809692</td><td>0.0308643109</td></tr>
+  <tr><td>SKK</td><td>Slovakia Koruny</td><td >32.1730818024</td><td>0.0310818841</td></tr>
+  <tr><td>ZAR</td><td>South Africa Rand</td><td >11.9782611884</td><td>0.0834845713</td></tr>
+  <tr><td>KRW</td><td>South Korea Won</td><td >1557.0878165672</td><td>0.0006422245</td></tr>
+  <tr><td>KRW</td><td>South Korea Won</td><td >736.5025372363</td><td>0.0013577686</td></tr>
+  <tr><td>LKR</td><td>Sri Lanka Rupees</td><td >168.6792276648</td><td>0.0059284123</td></tr>
+  <tr><td>SDG</td><td>Sudan Pounds</td><td >3.1008238187</td><td>0.3224949428</td></tr>
+  <tr><td>SDG</td><td>Sudan Pounds</td><td >3.1641059374</td><td>0.3160450439</td></tr>
+  <tr><td>SEK</td><td>Sweden Kronor</td><td >9.3744616204</td><td>0.1066727926</td></tr>
+  <tr><td>CHF</td><td>Switzerland Francs</td><td >5.6787713981</td><td>0.1760944278</td></tr>
+  <tr><td>CHF</td><td>Switzerland Francs</td><td >1.6229698194</td><td>0.6161544029</td></tr>
+  <tr><td>TWD</td><td>Taiwan New Dollars</td><td >47.5136650535</td><td>0.0210465768</td></tr>
+  <tr><td>THB</td><td>Thailand Baht</td><td >49.4073971882</td><td>0.0202398842</td></tr>
+  <tr><td>TTD</td><td>Trinidad and Tobago Dollars</td><td >9.8043822067</td><td>0.1019952077</td></tr>
+  <tr><td>TND</td><td>Tunisia Dinars</td><td >1.2056580369</td><td>0.8294225803</td></tr>
+  <tr><td>TND</td><td>Tunisia Dinars</td><td >1.8239909787</td><td>0.5482483256</td></tr>
+  <tr><td>TRY</td><td>Turkey New Lira</td><td >2.0106814515</td><td>0.4973438230</td></tr>
+  <tr><td>AED</td><td>United Arab Emirates Dirhams</td><td >5.7518520259</td><td>0.1738570456</td></tr>
+  <tr><td>GBP</td><td>United Kingdom Pounds</td><td >0.7898087676</td><td>1.2661292721</td></tr>
+  <tr><td>USD</td><td>United States Dollars</td><td >1.5661952419</td><td>0.6384900000</td></tr>
+  <tr><td>VEF</td><td>Venezuela Bolivares Fuertes</td><td >14.3805772996</td><td>0.0695382375</td></tr>
+  <tr><td>VEF</td><td>Venezuela Bolivares Fuertes</td><td >3.3630910429</td><td>0.2973455037</td></tr>
+  <tr><td>VND</td><td>Vietnam Dong</td><td >25228.2729023791</td><td>0.0000396381</td></tr>
+  <tr><td>ZMK</td><td>Zambia Kwacha</td><td >5411.2045607605</td><td>0.0001848017</td></tr>
+
+</table>
+    
+<script type="text/javascript">
+
+new DynamicTable("t1", {
+   colTypes: ["alpha", "alpha", "number", "number"],
+   pager: {
+      rowsCount: 15
+   }
+});
+    
+</script>
+
+
+      </article>
+
+      <aside>
+          <h1><a href="http://www.daviddurman.com">David Durman</a></h1>
+
+          Hi there, thanks for coming! My name is David Durman and I'm a JavaScript developer based in Amsterdam, the Netherlands.
+          I enjoy web technologies be it on front-end or back-end sides. I'm the creator of <a href="http://figurepool.com">FigurePool</a>, 
+          <a href="http://jsonmate.com">JSONMate</a>, <a href="http://jointjs.com">JointJS</a>, <a href="http://www.daviddurman.com/flexi-color-picker">FlexiColorPicker</a>
+          and <a href="https://github.com/DavidDurman">others</a>.
+
+          <hr />
+
+          <label>Contact me on:</label>
+
+          <a href="http://www.linkedin.com/in/daviddurman">LinkedIn</a>
+
+          <a href="https://twitter.com/DavidDurman" class="twitter-follow-button" data-show-count="false">Follow @DavidDurman</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+          <a href="https://github.com/DavidDurman" class="github-follow-button">Follow On GitHub</a>
+          <script type="text/javascript" src="http://octophile.com/widgets.js"></script>
+      </aside>
+
+    <link rel="stylesheet" href="assets/sunburst.min.css" />
+    <script src="assets/highlight.min.js"></script>
+    <script>
+        hljs.tabReplace = '    ';
+        hljs.initHighlighting();
+    </script>
+
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-5029684-5']);
+        _gaq.push(['_setDomainName', '.daviddurman.com']);
+        _gaq.push(['_trackPageview', '/HOME']);
+
+        (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+  </body>
+</html>
