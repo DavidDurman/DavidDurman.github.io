@@ -39,7 +39,7 @@
 #t1 .dynamic-table-downarrow { 
   height: 16px;
   width: 16px;
-  background-image: url('./arrow_down_16x.png');
+  background-image: url('./assets/arrow_down_16x.png');
   cursor: pointer;
   display: inline-block;
   margin: 3px;
@@ -47,7 +47,7 @@
 #t1 .dynamic-table-uparrow { 
   height: 16px;
   width: 16px;
-  background-image: url('./arrow_up_16x.png');
+  background-image: url('./assets/arrow_up_16x.png');
   cursor: pointer;
   display: inline-block;
   margin: 3px;
