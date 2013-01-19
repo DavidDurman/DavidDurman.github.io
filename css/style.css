@@ -86,14 +86,6 @@ aside {
    box-shadow: inset -10px 0 30px black;
 }
 
-@media (max-width: 700px) {
-   aside {
-      position: static;
-      width: 100%;
-      height: auto;
-   }
-}
-
 aside h1 a {
    display: block;
    font-size: 15px;
@@ -110,7 +102,7 @@ aside h1 a:hover {
 article {
    display: block;
    max-width: 600px;
-   margin: 40px auto;
+   margin: 40px auto 40px 335px;
    color: black;
 }
 
@@ -190,3 +182,15 @@ pre code {
   font-weight: 400;
   src: local('Yanone Kaffeesatz Regular'), local('YanoneKaffeesatz-Regular'), url(http://themes.googleusercontent.com/static/fonts/yanonekaffeesatz/v4/YDAoLskQQ5MOAgvHUQCcLQa6gm6bS00u2Qn-iPLo1Go.woff) format('woff');
 }
+
+@media (max-width: 700px) {
+   aside {
+      position: static;
+      width: 100%;
+      height: auto;
+   }
+   article {
+      margin-left: auto;
+   }
+}
+
