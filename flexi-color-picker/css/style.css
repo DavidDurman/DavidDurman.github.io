@@ -245,6 +245,8 @@ body {
 #disqus_thread {
     width: 600px;
     margin: 0 auto;
+   background-color: white;
+   padding: 50px;
 }
 #disqus_thread h3 {
     color: white;
