@@ -101,8 +101,8 @@ function DynamicTable(obj, options){
 	    this.filters.push(filter);
 
 	    // button for sorting
-	    var toolBtn = document.createElement("div");
-	    //toolBtn.src = blank_image_src;
+	    var toolBtn = document.createElement("img");
+	    toolBtn.src = blank_image_src;
 	    toolBtn.className = "dynamic-table-downarrow";
 	    DynamicTableEvent.observe(toolBtn, "click", this._toolbarClick);
 	    
@@ -270,7 +270,7 @@ DynamicTable.prototype.pager = function(page){
     }
 
     // hide unnecessary page indexes
-    var showed_rows_count = rows.length - this.rmRows.length;
+    var showed_rows_count = this.rows.length - this.rmRows.length;
     var p_count = Math.ceil(this.rows.length / this.maxRowCount);	// pages count
     var p_cur_count = Math.ceil(showed_rows_count / this.maxRowCount);	// current pages count
 
