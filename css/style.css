@@ -36,6 +36,11 @@ body {
    font-family: Helvetica, sans-serif;
 }
 
+.gist {
+   font-size: 13px;
+   line-height: 15px;
+}
+
 hr {
    height: 1px;
    width: 100%;

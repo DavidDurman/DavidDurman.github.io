@@ -1,0 +1,107 @@
+{
+        "title": "Async flow control using Statecharts.",
+        "description": "Using hierarchical state machines to control async behavior in JavaScript applications both in browsers and in NodeJS.",
+        "keywords": "async flow control, complex javascript applications"
+}
+
+<header>
+    <h1>Async flow control using Statecharts.</h1>
+    <span class="date">January 20th, 2013</span>
+</header>
+
+<p>
+
+    In this post, I'm proposing an alternative way of dealing with asynchronous and non-trivial behaviour 
+    of JavaScript applications in both the client (browsers) and server side environments.
+
+</p>
+
+<script type="text/javascript" src="http://drawdotio.appspot.com/embed.js"></script>
+
+<h2>Introduction</h2>
+
+<p>
+
+    Asynchronous, event-driven programming is the heart of JavaScript applications be it in browsers or NodeJS.
+    Programmers deal with future values on a daily basis. 
+
+</p>
+
+<h2>Existing, adopted patterns</h2>
+
+<p>
+
+    There are many existing and widely adopted approaches for dealing with the complexity that asynchronous 
+    applications bring. Some of them include:
+
+</p>
+
+<ul>
+    <li><b>Continuation-Passing style</b>
+        <script src="https://gist.github.com/4586052.js"></script>
+    </li>
+    <li><b>Promises</b>
+        <script src="https://gist.github.com/4586064.js"></script>
+    </li>
+</ul>
+
+<h2>What's wrong with these patterns?</h2>
+
+<p>
+
+    There is nothing wrong with any of the styles if you use them properly. Every scenario deserves its
+    own attention. 
+</p>
+<p>
+
+    <em>Continuation-passing</em> style is known to lead to a so called <q>callback hell</q>, i.e. your
+    code tends to get a christmas tree-like structure, moving gradually from left to right. That makes
+    it quite difficult to read and figure out what it does. 
+</p>
+<p>
+    <em>Promises</em>, on the other hand, solve
+    this issue by introducing future values, that is values that you can work with even though they
+    are not available yet. Once the values become available - get resolved, the callback mechanism that is hidden
+    in the implementation of <em>Promises</em> passes them through the interface and you finally get the real data.
+    <em>Promises</em> can also be combined into higher-order functions (map, reduce, ...) making it easier to
+    work with lists of future values. <em>Promises</em> have been widely adopted in practice though many
+    developers find them difficult to understand and they don't allow for modeling of more complex logic.
+
+</p>
+
+<h2>Alternative</h2>
+
+<p>
+
+    Statecharts are nothing new in the field of computer science. They have a strong formal foundation and
+    have been discovered by David Harel in 1987 in its academic paper <em>Statecharts: A visual formalism for complex systems</em>.
+    Later they have been redefined in xUML (Executable UML) and by Miro Samek in his work on Hierarchical State Machines.
+
+</p>
+
+<p>
+
+    Let's look at an example of Statecharts in JavaScript:
+</p>
+
+<script src="https://gist.github.com/4586070.js"></script>
+
+<p> 
+
+    The code above might look verbous. However, notice one important thing, the logic of synchronizing
+    the events is completely hidden inside the state machine. That means that we can decouple the state machine
+    from the code that uses it and use the same machine throughout our whole application.
+</p>
+
+<script src="https://gist.github.com/4586078.js"></script>
+
+<p>
+
+    Now why is this advantegous? First, we've seen that we can completely decouple the event logic from the actual
+    code that leverages it. Secondly, Statecharts allow us to build complex, non-trivial logic while preserving
+    understandability. Moreover, Statecharts have been developed in a way that they can be easilly
+    visualized. This brings a tremendeous value in understanding what's going on. 
+    Statecharts can also be easilly tested as they are completely separate components. Finally,
+    they are very easy to debug as your Statechart can print out every state it goes through or is currently in.
+
+</p>
