@@ -52,8 +52,7 @@
 
 
 <script type="text/javascript" src="assets/joint.min.js"></script>
-<script type="text/javascript" src="assets/dagre.min.js"></script>
-<script type="text/javascript" src="assets/joint.layout.DirectedGraph.js"></script>
+<script type="text/javascript" src="assets/joint.layout.DirectedGraph.min.js"></script>
 <script type="text/javascript" src="assets/autolayout.js"></script>
 
 
@@ -126,7 +125,8 @@ function makeElement(label) {
     var maxLineLength = _.max(label.split('\n'), function(l) { return l.length; }).length;
 
     // Compute width/height of the rectangle based on the number 
-    // of lines in the label and the letter size.
+    // of lines in the label and the letter size. 0.6 * letterSize is
+    // an approximation of the monospace font letter width.
     var letterSize = 8;
     var width = 2 * (letterSize * (0.6 * maxLineLength + 1));
     var height = 2 * ((label.split('\n').length + 1) * letterSize);
@@ -163,7 +163,10 @@ Dagre generated positions to JointJS elements.</p>
 </code></pre>
 
 <p>That's it! We've just built a simple application for rendering and layouting directed graphs represented by
-an adjacency list. The full source code of this demo is available <a href="assets/autolayout.js">here</a>.</p>
+an adjacency list. The full source code of this demo is available <a href="assets/autolayout.js">here</a>. You'll
+also need JointJS core files (<code>joint.js</code> and <code>joint.css</code>) and the <code>joint.layout.DirectedGraph</code>
+plugin that already contains Dagre. All is available from the <a href="http://jointjs.com/download">JointJS Download</a> page.
+</p>
 
 
 <h2>Discussion</h2>

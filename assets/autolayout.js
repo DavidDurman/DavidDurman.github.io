@@ -35,7 +35,8 @@ function makeElement(label) {
     var maxLineLength = _.max(label.split('\n'), function(l) { return l.length; }).length;
 
     // Compute width/height of the rectangle based on the number
-    // of lines in the label and the letter size.
+    // of lines in the label and the letter size. 0.6 * letterSize is
+    // an approximation of the monospace font letter width.
     var letterSize = 8;
     var width = 2 * (letterSize * (0.6 * maxLineLength + 1));
     var height = 2 * ((label.split('\n').length + 1) * letterSize);
