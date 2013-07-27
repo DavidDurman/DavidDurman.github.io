@@ -1,11 +1,11 @@
 {
-        "title": "Automatic graph layout with JointJS and Dagre.",
+        "title": "Automatic graph layout with JointJS and Dagre",
         "description": "Render and layout directed graphs automatically with JointJS diagramming library and Dagre directed layout engine.",
         "keywords": "javascript, diagram, graph, graph layout"
 }
 
 <header>
-    <h1>Automatic graph layout with JointJS and Dagre.</h1>
+    <h1>Automatic graph layout with JointJS and Dagre</h1>
     <span class="date">July 26th, 2013</span>
 </header>
 
@@ -15,19 +15,21 @@
     render and layout directed graphs.</p>
 
 <p>
-    <a href="http://jointjs.com">JointJS</a> library's main focus is on <b>creating and interacting with diagrams</b>. It's <b>MVC architecture</b>
+    <a href="http://jointjs.com">JointJS</a> library's main focus is on <b>creating diagrams and interacting with them</b>. Its <b>MVC architecture</b>
     strictly separates models (graph, element, link) from views. Models hold geometrical and presentation attributes of diagram
-    elements and links while views are responsible for rendering models onto the paper and handling interaction with the models.
+    elements and links, while views are responsible for rendering models onto the paper and handling interaction.
     JointJS uses <b>SVG to render</b> all the graphics onto the screen.</p>
 <p>
     <a href="https://github.com/cpettitt/dagre">Dagre</a> is a directed graph layout engine for JavaScript. Dagre is a neat library with 
     three key priorities. First, it operates completely <b>client side</b>. Second, it's very <b>fast</b>. And third, it's
-    <b>rendering agnostic</b>. All these three characteristics makes it a great fit for integration with JointJS.</p>
+    <b>rendering agnostic</b>. All these characteristics make Dagre a great fit for integration with JointJS.</p>
 
 <h2>Demo</h2>
-<p>This post shows how to combine both libraries in order to automatically build a diagram from a directed graph represented as 
-    an <a href="http://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>. Let's start with the final demo and then go through the steps on
-    how it was built.</p>
+<p>Below is a demo showing a combination of both libraries. It is a simple application that automatically builds a diagram from a directed graph represented as 
+    an <a href="http://en.wikipedia.org/wiki/Adjacency_list">adjacency list</a>.</p>
+<p>
+    The textarea contains the graph definition in the form of an adjacency list. An adjacency list is a compact representation
+    of a graph associating vertices with an unordered list of their neighbors.</p>
 
 
 <link rel="stylesheet" type="text/css" href="assets/joint.min.css" />
@@ -55,16 +57,13 @@
 <script type="text/javascript" src="assets/autolayout.js"></script>
 
 
-<p>
-    The textarea contains the graph definition in the form of an adjacency list. Adjacency list is a compact representation
-    of a graph associating vertices with an unordered list of their neighbors.</p>
 
 <h2>Implementation</h2>
-<p>The implementation is quite straightforwared though there is some things you might be unfamiliar with if 
+<p>The implementation is quite straightforward, although there are some things you might not be familiar with if 
     you're new to JointJS.</p>
 
-<p>First, we create a JointJS graph and paper objects. JointJS graph is a model that holds all the cells (elements and links).
-    Paper is a view that knows how to render cells added to the graph.</p>
+<p>First, we create a graph and paper objects. A JointJS graph is a model that holds all the cells (elements and links).
+    A paper is a view that knows how to render cells added to the graph.</p>
 <pre><code>
 var graph = new joint.dia.Graph;
 
@@ -78,9 +77,9 @@ var paper = new joint.dia.Paper({
 });
 </code></pre>
 
-<p>The paper takes two important attributes. The holder for the paper element <code>el</code> and a graph as a <code>model</code>.</p>
+<p>The paper takes two important attributes. The holder for the paper element <code>el</code> and the graph as its <code>model</code>.</p>
 
-<p>Next, we create a function that walks the adjacency list and returns an array of cells that will be added to the graph later on.
+<p>Next, we create a function that walks through the adjacency list and returns an array of cells that will be added to the graph later on.
     Note that JointJS comes prebuilt with the <a href="http://underscorejs.org/">Underscore</a> library so  
     you'll see some of the <code>_.</code> methods used in the code below.
 </p>
@@ -107,11 +106,9 @@ function buildGraphFromAdjacencyList(adjacencyList) {
 
 <p>In this function, we're using two other helpers, <code>makeLink</code> and <code>makeElement</code>.
     These helper functions create JointJS link and element models, respectively. The first one takes
-    two element IDs and creates a link between two elements with those IDs. The second one takes
-    an element ID and creates a JointJS basic rectangle element with this ID and label. You might
-    notice that we use element labels also as IDs. There is nothing wrong with that as long as there
-    is no two elements with the same label.
-    Let's see how these functions look like:
+    two element IDs and creates a link between those elements. The second one takes
+    an element ID and creates a rectangle element with this ID (which also becomes the label).
+    Let's have a look at these functions:
 </p>
 <pre><code>
 function makeLink(parentElementLabel, childElementLabel) {
@@ -150,7 +147,7 @@ function makeElement(label) {
 </code></pre>
 
 <p>Now, we're able to collect JointJS cells and populate the graph. Our paper (a view for the graph) automatically
-reacts on new cells added to the graph and renders views for our links and elements.</p>
+reacts to new cells added to the graph, and renders views for our links and elements.</p>
 <pre><code>
 var cells = buildGraphFromAdjacencyList(adjacencyList);
 graph.resetCells(cells);
@@ -158,12 +155,12 @@ graph.resetCells(cells);
 
 
 <p>Finally, we can use the <code>joint.layout.DirectedGraph</code> to auto-layout our graph. This
-plugin is a tiny wrapper around Dagre layout function. The only thing it does is transforming JointJS <code>graph</code> model
-into a data structure Dagre understands and then, after Dagre is finished with layouting, applying 
+plugin is a tiny wrapper around Dagre layout function. Simply, it transforms JointJS <code>graph</code> model
+into a data structure Dagre understands. After Dagre is finished with layouting, the plugin applies
 Dagre generated positions to JointJS elements.</p>
 <pre><code>
  joint.layout.DirectedGraph.layout(graph, { setLinkVertices: false });
 </code></pre>
 
-<p>That's it! We just built a simple application for rendering and layouting directed graphs represented by
-an adjacency list. The full source code of this demo is available <a href="assets/autolayout.js">here</a></p>
+<p>That's it! We've just built a simple application for rendering and layouting directed graphs represented by
+an adjacency list. The full source code of this demo is available <a href="assets/autolayout.js">here</a>.</p>
