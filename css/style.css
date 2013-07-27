@@ -34,6 +34,7 @@ input, button, textarea, select{*font-size: 100%;}
 body {
    line-height: 20px;
    font-family: Helvetica, sans-serif;
+   text-rendering: optimizeLegibility;
 }
 
 .gist {
@@ -79,12 +80,12 @@ aside {
    background-color: #333;
    color: white;
    position: fixed;
-   width: 200px;
+   width: 180px;
    height: 100%;
    top: 0;
    left: 0;
-   padding: 50px;
-   font-size: 13px;
+   padding: 30px;
+   font-size: 12px;
    border-right: 1px solid black;
    -moz-box-shadow: inset -10px 0 30px black;
    -webkit-box-shadow: inset -10px 0 30px black;
@@ -106,8 +107,8 @@ aside h1 a:hover {
 
 article {
    display: block;
-   max-width: 600px;
-   margin: 40px auto 40px 335px;
+   max-width: 700px;
+   margin: 40px auto 40px 290px;
    color: black;
 }
 
@@ -116,7 +117,7 @@ h3 {
 }
 
 h2 {
-   margin-top: 80px;
+   margin-top: 40px;
 }
 
 h2,
@@ -141,8 +142,12 @@ p {
 }
 
 pre code { 
-  font-size: .7em !important;
-  border-radius: 5px;
+   font-size: 13px;
+   line-height: 15px;
+   border: 1px solid gray;
+   -webkit-border-radius: 1px;
+   -moz-border-radius: 1px;
+   border-radius: 1px;
    margin-bottom: 20px;
 }
 
