@@ -1,0 +1,228 @@
+{
+        "title": "A hidden gold of JointJS, the geometry library",
+        "description": "JointJS diagramming library contains a mini library for geometry operations.",
+        "keywords": "javascript, geometry"
+}
+
+<header>
+    <h1>A hidden gold of JointJS, the geometry library</h1>
+    <span class="date">September 16th, 2013</span>
+</header>
+
+<p>    
+    The <a href="http://jointjs.com">JointJS</a> diagramming library contains a not-yet-documented standalone pure JavaScript mini library that implements many useful geometry operations.
+    This post shows all the primitives that the geometry library exposes. The geometry library does not have
+    any dependencies, is AMD complient and can be used outside of JointJS. The source code of the library can
+    be found on <a href="https://github.com/DavidDurman/joint/blob/master/src/geometry.js">Github</a>.
+</p>
+
+<p>It's important to note that many of the methods of the geometry library are inspired by their <a href="http://www.squeak.org/">Squeak Smalltalk</a> implementations.</p>
+
+<h2>List of primitives</h2>
+
+<p>This is the complete list of primitives that the geometry library exposes:</p>
+
+<ul>
+    <li>point</li>
+    <li>line</li>
+    <li>rect</li>
+    <li>ellipse</li>
+    <li>bezier</li>
+</ul>
+
+
+<h2>Point</h2>
+
+<p>Methods of the <code>point</code> primitve are:</p>
+
+<ul>
+    <li><b><code>adhereToRect(r)</code></b> 
+        If the point lies outside the rectangle <code>r</code>, return the nearest point on the boundary of <code>r</code>.</li>
+    <li><b><code>theta(p)</code></b> 
+        Return the angle (in degrees) between the point, another point <code>p</code> and the x-axis.</li>
+    <li><b><code>distance(p)</code></b> 
+        Return the distance between the point and another point <code>p</code>.</li>
+    <li><b><code>manhattenDistance(p)</code></b> 
+        Return the <a href="http://en.wikipedia.org/wiki/Taxicab_geometry">manhatten distance</a> between the point and another point <code>p</code>.</li>
+    <li><b><code>offset(dx, dy)</code></b> 
+        Offset the point (change its x and y coordinates) by <code>dx</code> and <code>dy</code>.</li>
+    <li><b><code>magnitude()</code></b> 
+        Return the <a href="http://en.wikipedia.org/wiki/Magnitude_(mathematics)">magnitude</a> of the point vector.</li>
+    <li><b><code>update(x, y)</code></b> 
+        Update the point x and y coordinates with new values and return the point itself. Useful for chaining</li>
+    <li><b><code>round([decimals])</code></b> 
+        Round the point (optionally on <code>decimal</code> places) and return the point itself.</li>
+    <li><b><code>normalize([len])</code></b> 
+        <a href="http://en.wikipedia.org/wiki/Unit_vector">Normalize</a> the point vector and return the point itself. In other words, scale the line segment between (0, 0) and the point in order for it to have a length of <code>len</code>. If <code>len</code> is not passed, it is considered to be <code>1</code> in which case a unit vector is computed.</li>
+    <li><b><code>difference(p)</code></b> 
+        Return a point that has coordinates computed as a difference between the point and another point <code>p</code>.</li>
+    <li><b><code>toPolar(o)</code></b> 
+        Convert rectangular to polar coordinates. If the origin <code>o</code> is not specified, it is considered to be at (0,0).</li>
+    <li><b><code>rotate(o, angle)</code></b> 
+        Rotate the point by <code>angle</code> around the origin <code>o</code>.</li>
+    <li><b><code>move(ref, distance)</code></b> 
+        Move the point on a line that leads to another point <code>ref</code> by distance <code>distance</code>.</li>
+    <li><b><code>changeInAngle(dx, dy, ref)</code></b> 
+        Return the change in angle that is the result of moving the point from its previous position (-dx, -dy) to its new position. This move is relative to the <code>ref</code> point and x axis.</li>
+</ul>
+
+<p>Methods of the point constructor:</p>
+
+<ul>
+    <li><b><code>fromPolar(r, angle, o)</code></b>
+        Construct a point from <a href="http://en.wikipedia.org/wiki/Polar_coordinate_system">polar coordinates</a>.</li>
+    <li><b><code>random(x1, x2, y1, y2)</code></b>
+        Construct a point with random coordinates that fall into the range <code>[x1, x2]</code> and <code>[y1, y2]</code>.</li>
+</ul>
+
+<h3>Examples</h3>
+
+<pre><code>
+var p1 = point(20, 50);
+var p2 = point('150 200');
+p1.distance(p2);
+p1.theta(p2);
+p1.normalize(2);
+console.log(p1 + ''); // prints 20@50
+</code></pre>
+
+<h2>Line</h2>
+
+<p>Methods of the <code>line</code> primitive are:</p>
+
+<ul>
+    <li><b><code>length()</code></b>
+        Return the length of the line.</li>
+    <li><b><code>squaredLength()</code></b>
+        Return the squared length of the line. Useful in cases the real length is not necessary (saves the Math.sqrt() operation).</li>
+    <li><b><code>midpoint()</code></b>
+        Return the point that is in the middle of the line.</li>
+    <li><b><code>intersection(l)</code></b>
+        Return the point that the line is intersecting another line <code>l</code>. Return <code>null</code> if there is no such point.</li>
+</ul>
+
+<h3>Examples</h3>
+
+<pre><code>
+var l1 = line(point(20, 50), point(150, 200));
+var l2 = line(point(320, 150), point(20, 20));
+l1.length();
+l1.intersection(l2);
+l1.midpoint();
+console.log(l1 + ''); // prints 20@50 150@200
+</code></pre>
+
+
+<h2>Rectangle</h2>
+
+<p>Methods of the <code>rect</code> primitive are:</p>
+
+<ul>
+    <li><b><code>origin()</code></b>
+        Return the point that is the top left corner of the rectangle.</li>
+    <li><b><code>corner()</code></b>
+        Return the point that is the bottom right corner of the rectangle.</li>
+    <li><b><code>topRight()</code></b>
+        Return the point that is the top right corner of the rectangle.</li>
+    <li><b><code>bottomLeft()</code></b>
+        Return the point that is the bottom left corner of the rectangle.</li>
+    <li><b><code>center()</code></b>
+        Return the point that is the center of the rectangle.</li>
+    <li><b><code>intersect(r)</code></b>
+        Return <code>true</code> if the rectangle intersects another rectangle <code>r</code>.</li>
+    <li><b><code>sideNearestToPoint(p)</code></b>
+        Return the <code>"top", "left", "right" or "bottom"</code> string denoting the side which is nearest to the point <code>p</code>.</li>
+    <li><b><code>containsPoint(p)</code></b>
+        Return <code>true</code> if the rectangle contains the point <code>p</code>.</li>
+    <li><b><code>pointNearestToPoint(p)</code></b>
+        Return the point on the boundary of the rectangle nearest to the point <code>p</code>.</li>
+    <li><b><code>intersectionWithLineFromCenterToPoint(p, angle)</code></b>
+        Return the point on the boundary of the rectangle that is the intersection of the rectangle with the line starting in the center of the rectangle ending in the point <code>p</code>. If <code>angle</code> is specified, the intersection
+        will take into account a rotation of the rectangle by <code>angle</code> degrees around its center.</li>
+    <li><b><code>moveAndExpand(r)</code></b>
+        Offset the rectangle by <code>r.x</code> and <code>r.y</code> and expand it by <code>r.width</code> and <code>r.height</code>.</li>
+    <li><b><code>round(decimals)</code></b>
+        Round the rectangle (optionally on <code>decimal</code> places) and return the rectangle itself.</li>
+</ul>
+
+<h3>Examples</h3>
+
+<pre><code>
+var r1 = rect(20, 50, 200, 100);  // x, y, width, height
+var r2 = rect(80, 70, 300, 200);
+r1.origin();
+r1.intersect(r2); // true
+console.log(r1 + ''); // prints 20@50 220@150
+</code></pre>
+
+<h2>Ellipse</h2>
+
+<p>Methods of the <code>ellipse</code> primitive are:</p>
+
+<ul>
+    <li><b><code>bbox()</code></b>
+        Return the rectangle that is the bounding box of the ellipse.</li>
+    <li><b><code>intersectionWithLineFromCenterToPoint(p, angle)</code></b>
+        Return the point on the boundary of the ellipse that is the intersection of the ellipse with the line starting in the center of the ellipse ending in the point <code>p</code>. If <code>angle</code> is specified, the intersection
+        will take into account a rotation of the ellipse by <code>angle</code> degrees around its center.</li>
+</ul>
+
+<h3>Examples</h3>
+
+<pre><code>
+var e1 = ellipse(point(100, 50), 50, 80);  // center, a, b
+e1.bbox();
+console.log(e1 + ''); // prints 100@50 50 80
+</code></pre>
+
+<h2>Bezier</h2>
+
+<p>Methods of the <code>bezier</code> primitive are:</p>
+
+<ul>
+    <li><b><code>curveThroughPoints(points)</code></b>
+        Return <a href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d">SVG path commands</a> that define a cubic bezier curve
+        going through the <code>points</code>.</li>
+</ul>
+
+<h2>Other exported methods of the module</h2>
+
+<p>The geometry module (in AMD environment terms) or the <code>g</code> global variable (without AMD), contains
+    these additional methods:</p>
+
+<ul>
+    <li><b><code>toDeg(rad)</code></b>
+        Convert radians <code>rad</code> to degrees.</li>
+    <li><b><code>toRad(deg)</code></b>
+        Convert degrees <code>deg</code> to radians.</li>
+    <li><b><code>snapToGrid(val, gridSize)</code></b>
+        Snap the value <code>val</code> to a grid of size <code>gridSize</code>.</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>The geometry library of JointJS is a handy tool for applications that deal with geometry primitives. As this
+    library does not have any dependencies and is implemented purely in JavaScript without using the browser DOM, it
+    can run even on the server (e.g. in NodeJS).
+</p>
+
+
+
+<h2>Discussion</h2>
+<br/>
+<br/>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'daviddurman'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
