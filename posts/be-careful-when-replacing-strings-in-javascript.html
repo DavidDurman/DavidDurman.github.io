@@ -1,0 +1,72 @@
+{
+        "title": "Be careful when replacing strings in JavaScript",
+        "description": "Replacing strings in JavaScript might give you a big headache if you are not careful.",
+        "keywords": "javascript, string replace"
+}
+
+<header>
+    <h1>Be careful when replacing strings in JavaScript</h1>
+    <span class="date">November 4th, 2013</span>
+</header>
+
+<p>
+    Sometimes, methods that you think you know well might surprise you and bring you
+    headaches if you don't read the documentation carefully. One of these methods is 
+    the JavaScript String.replace method. Let's start with the obvious scenario:
+<pre><code>
+'abc'.replace('bc', 'x')        // ax
+</code></pre>
+
+Quite simple right? You expect the <code>bc</code> substring to be replaced with <code>x</code>
+string and this is exactly what you get. But what if you don't control the string you're replacing with?
+This string might come from a user input or be a content of a file read from a file system:
+
+<pre><code>
+'abc'.replace('bc', userinput)
+</code></pre>
+
+The result of this might surprise you depending on what the <code>userinput</code> string contains.
+<pre><code>
+var userinput = 'x';
+'abc'.replace('bc', userinput)  // ax
+</code></pre>
+
+Still ok. But what about now:
+
+<pre><code>
+var userinput = 'x$&';
+'abc'.replace('bc', userinput)  // axbc
+</code></pre>
+
+What? Yes, this is because the second parameter, the replacement string, can contain <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">special replacement patterns</a>.
+E.g. the replacement pattern <code>$&</code> means <q>Insert the matched substring.</q>
+A safe way of replacing strings with new substrings that you don't control is:
+
+<pre><code>
+var userinput = 'x$&';
+'abc'.replace('bc', function(match) { return userinput; })  // ax$&
+</code></pre>
+</p>
+<p>
+This might surprise you when you're coming from e.g. Python world, where this does not apply.
+</p>
+
+
+<h2>Discussion</h2>
+<br/>
+<br/>
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'daviddurman'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
