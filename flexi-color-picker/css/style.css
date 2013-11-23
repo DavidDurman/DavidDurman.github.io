@@ -91,6 +91,23 @@ body {
 #main {
     width: 1200px;
     margin: 50px auto 0 auto;
+    position: relative;
+}
+.jointjs-link {
+   position: absolute;
+   bottom: 10px;
+   left: -20px;
+   height: 50px;
+   line-height: 50px;
+   text-decoration: none;
+}
+.jointjs-link img {
+   width: 80px;
+}
+.jointjs-link span {
+   vertical-align: top;
+   font-size: 14px;
+   margin-left: 10px;
 }
 
 #example {
