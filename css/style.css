@@ -151,6 +151,10 @@ pre code {
    margin-bottom: 20px;
 }
 
+.post-screenshots img {
+   width: 200px;
+}
+
 /* FigurePool logo */
 
 .figurepool {
@@ -201,6 +205,10 @@ pre code {
    }
    article {
       margin-left: auto;
+   }
+
+   .post-screenshots img {
+      width: 100px;
    }
 }
 
