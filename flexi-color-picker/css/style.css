@@ -177,9 +177,10 @@ body {
     width: 100px;
     margin-bottom: 4px;
     margin-left: -5px;
+    background-color: white;
 }
 #color-values span:hover {
-    background-color: white;
+    opacity: .8;
 }
 .clear {
     height: 1px;
